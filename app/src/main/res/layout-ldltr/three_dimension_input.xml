@@ -1,0 +1,3041 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
+
+    <TextView
+        android:id="@+id/label_Z"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:autoText="true"
+        android:text="@string/Zcolon"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/depthIndicator"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="number"
+        app:layout_constraintLeft_toRightOf="@+id/label_Z"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/clearButton"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="#ffffffff"
+        app:layout_constraintLeft_toLeftOf="@+id/color_indicator"
+        app:layout_constraintTop_toBottomOf="@+id/color_indicator"
+        android:text="Clear" />
+
+    <Button
+        android:id="@+id/set_button"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:text="@string/set"
+        app:layout_constraintLeft_toRightOf="@+id/depthIndicator" />
+
+    <Button
+        android:id="@+id/up_button"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@string/Up"
+        app:layout_constraintLeft_toRightOf="@+id/set_button"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/down_button"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@string/Down"
+        app:layout_constraintLeft_toRightOf="@+id/up_button"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <Button
+        android:id="@+id/three_d_view_button"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="3DView"
+        app:layout_constraintLeft_toRightOf="@+id/down_button" />
+    <Button
+        android:id="@+id/return_to_main"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Ret"
+        app:layout_constraintLeft_toRightOf="@+id/three_d_view_button" />
+
+    <TextView
+        android:id="@+id/spacer"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:text=" "
+        app:layout_constraintLeft_toLeftOf="@+id/button_15_00"
+        app:layout_constraintTop_toBottomOf="@+id/button_15_00" />
+
+    <TextView
+        android:id="@+id/spacer2"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        app:layout_constraintLeft_toRightOf="@+id/seekBar_red"
+        app:layout_constraintTop_toTopOf="@+id/seekBar_red"
+        />
+
+    <TextView
+        android:id="@+id/spacer3"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:text=" "
+        app:layout_constraintLeft_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/depthIndicator"
+
+        />
+
+    <Button
+        android:id="@+id/color_indicator"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:text="color"
+        android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/spacer2"
+        app:layout_constraintTop_toTopOf="@+id/seekBar_red" />
+
+    <ImageView
+        android:id="@+id/downArrow_1"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/down_arrow_icon"
+        android:background="#FFFFFFFF"
+        app:layout_constraintLeft_toRightOf="@+id/color_indicator"
+        app:layout_constraintTop_toTopOf="@+id/seekBar_red"
+        />
+
+    <ImageView
+        android:id="@+id/upArrow_1"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/up_arrow_icon"
+        app:layout_constraintLeft_toRightOf="@+id/downArrow_1"
+        app:layout_constraintTop_toTopOf="@+id/seekBar_red"  />
+
+    <ImageView
+        android:id="@+id/downArrow_2"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/down_arrow_icon"
+        android:background="#FFFFFFFF"
+        app:layout_constraintLeft_toRightOf="@+id/upArrow_1"
+        app:layout_constraintTop_toTopOf="@+id/seekBar_red"  />
+
+    <ImageView
+        android:id="@+id/upArrow_2"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/up_arrow_icon"
+        app:layout_constraintLeft_toRightOf="@+id/downArrow_2"
+        app:layout_constraintTop_toTopOf="@+id/seekBar_red"  />
+
+    <org.yamalab.uchiwade3d_ex1.BitmapMemoryView_1
+        android:id="@+id/bitmap_memory_1"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/color_indicator"
+        app:layout_constraintTop_toBottomOf="@+id/downArrow_1" />
+
+    <org.yamalab.uchiwade3d_ex1.BitmapMemoryView_2
+        android:id="@+id/bitmap_memory_2"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/bitmap_memory_1"
+        app:layout_constraintTop_toBottomOf="@+id/downArrow_1"  />
+
+    <SeekBar
+        android:id="@+id/seekBar_red"
+        android:layout_width="120dp"
+        android:layout_height="25dp"
+        android:background="#ff0000"
+        android:orientation="horizontal"
+        app:layout_constraintLeft_toRightOf="@+id/spacer"
+        app:layout_constraintTop_toBottomOf="@+id/spacer" />
+
+    <SeekBar
+        android:id="@+id/seekBar_green"
+        android:layout_width="120dp"
+        android:layout_height="25dp"
+        android:background="#00ff00"
+        android:orientation="horizontal"
+        app:layout_constraintLeft_toLeftOf="@+id/seekBar_red"
+        app:layout_constraintTop_toBottomOf="@+id/seekBar_red" />
+
+    <SeekBar
+        android:id="@+id/seekBar_blue"
+        android:layout_width="120dp"
+        android:layout_height="25dp"
+        android:background="#0000ff"
+        android:orientation="horizontal"
+        app:layout_constraintLeft_toLeftOf="@+id/seekBar_red"
+        app:layout_constraintTop_toBottomOf="@+id/seekBar_green" />
+
+    <TextView
+        android:id="@+id/color_white"
+        android:layout_width="40dp"
+        android:layout_height="20dp"
+        android:background="#ffffffff"
+        app:layout_constraintLeft_toLeftOf="@+id/seekBar_blue"
+        app:layout_constraintTop_toBottomOf="@+id/seekBar_blue" />
+
+    <TextView
+        android:id="@+id/color_red"
+        android:layout_width="40dp"
+        android:layout_height="20dp"
+        android:background="#ffff0000"
+        app:layout_constraintLeft_toLeftOf="@+id/color_white"
+        app:layout_constraintTop_toBottomOf="@+id/color_white" />
+
+    <TextView
+        android:id="@+id/color_green"
+        android:layout_width="40dp"
+        android:layout_height="20dp"
+        android:background="#ff00ff00"
+        app:layout_constraintLeft_toRightOf="@+id/color_red"
+        app:layout_constraintTop_toBottomOf="@+id/color_white" />
+
+    <TextView
+        android:id="@+id/color_blue"
+        android:layout_width="40dp"
+        android:layout_height="20dp"
+        android:background="#ff0000ff"
+        app:layout_constraintLeft_toRightOf="@+id/color_green"
+        app:layout_constraintTop_toBottomOf="@+id/color_white" />
+
+    <TextView
+        android:id="@+id/color_yellow"
+        android:layout_width="40dp"
+        android:layout_height="20dp"
+        android:background="#ffffff00"
+        app:layout_constraintLeft_toLeftOf="@+id/color_white"
+        app:layout_constraintTop_toBottomOf="@+id/color_red" />
+
+    <TextView
+        android:id="@+id/color_magenta"
+        android:layout_width="40dp"
+        android:layout_height="20dp"
+        android:background="#ff00ffff"
+        app:layout_constraintLeft_toRightOf="@+id/color_yellow"
+        app:layout_constraintTop_toBottomOf="@+id/color_red" />
+
+    <TextView
+        android:id="@+id/color_cyan"
+        android:layout_width="40dp"
+        android:layout_height="20dp"
+        android:background="#ffff00ff"
+        app:layout_constraintLeft_toRightOf="@+id/color_magenta"
+        app:layout_constraintTop_toBottomOf="@+id/color_red" />
+
+
+    <TextView
+        android:id="@+id/spacer4"
+        android:layout_width="20dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spacer3" />
+
+    />
+
+    <TextView
+        android:id="@+id/button_00_00"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar"
+        app:layout_constraintLeft_toRightOf="@+id/spacer4"
+        app:layout_constraintTop_toTopOf="@+id/spacer4"
+        android:background="@drawable/border"
+        />
+
+
+    <TextView
+        android:id="@+id/button_00_01"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar"
+        android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_00_00"
+        app:layout_constraintTop_toTopOf="@+id/button_00_00" />
+
+    <TextView
+        android:id="@+id/button_00_02"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar"
+        android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_00_01"
+        app:layout_constraintTop_toTopOf="@+id/button_00_00" />
+
+    <TextView
+        android:id="@+id/button_00_03"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar"
+        android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_00_02"
+        app:layout_constraintTop_toTopOf="@+id/button_00_00" />
+
+    <TextView
+        android:id="@+id/button_00_04"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_00_03"
+        app:layout_constraintTop_toTopOf="@+id/button_00_00" />
+
+    <TextView
+        android:id="@+id/button_00_05"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_00_04"
+        app:layout_constraintTop_toTopOf="@+id/button_00_00" />
+
+    <TextView
+        android:id="@+id/button_00_06"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_00_05"
+        app:layout_constraintTop_toTopOf="@+id/button_00_00" />
+
+    <TextView
+        android:id="@+id/button_00_07"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_00_06"
+        app:layout_constraintTop_toTopOf="@+id/button_00_00" />
+
+    <TextView
+        android:id="@+id/button_00_08"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_00_07"
+        app:layout_constraintTop_toTopOf="@+id/button_00_00" />
+
+    <TextView
+        android:id="@+id/button_00_09"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_00_08"
+        app:layout_constraintTop_toTopOf="@+id/button_00_00" />
+
+    <TextView
+        android:id="@+id/button_00_10"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_00_09"
+        app:layout_constraintTop_toTopOf="@+id/button_00_00" />
+
+    <TextView
+        android:id="@+id/button_00_11"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_00_10"
+        app:layout_constraintTop_toTopOf="@+id/button_00_00" />
+
+    <TextView
+        android:id="@+id/button_00_12"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_00_11"
+        app:layout_constraintTop_toTopOf="@+id/button_00_00" />
+
+    <TextView
+        android:id="@+id/button_00_13"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_00_12"
+        app:layout_constraintTop_toTopOf="@+id/button_00_00" />
+
+    <TextView
+        android:id="@+id/button_00_14"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_00_13"
+        app:layout_constraintTop_toTopOf="@+id/button_00_00" />
+
+    <TextView
+        android:id="@+id/button_00_15"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_00_14"
+        app:layout_constraintTop_toTopOf="@+id/button_00_00" />
+
+    <TextView
+        android:id="@+id/button_01_00"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toLeftOf="@+id/button_00_00"
+        app:layout_constraintTop_toBottomOf="@+id/button_00_00" />
+
+    <TextView
+        android:id="@+id/button_01_01"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_00_00"
+        app:layout_constraintTop_toTopOf="@+id/button_01_00" />
+
+    <TextView
+        android:id="@+id/button_01_02"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_00_01"
+        app:layout_constraintTop_toTopOf="@+id/button_01_00" />
+
+    <TextView
+        android:id="@+id/button_01_03"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_00_02"
+        app:layout_constraintTop_toTopOf="@+id/button_01_00" />
+
+    <TextView
+        android:id="@+id/button_01_04"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_00_03"
+        app:layout_constraintTop_toTopOf="@+id/button_01_00"
+
+        />
+
+    <TextView
+        android:id="@+id/button_01_05"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_00_04"
+        app:layout_constraintTop_toTopOf="@+id/button_01_00"
+
+        />
+
+    <TextView
+        android:id="@+id/button_01_06"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_00_05"
+        app:layout_constraintTop_toTopOf="@+id/button_01_00"
+
+        />
+
+    <TextView
+        android:id="@+id/button_01_07"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_00_06"
+        app:layout_constraintTop_toTopOf="@+id/button_01_00"
+
+        />
+
+    <TextView
+        android:id="@+id/button_01_08"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_00_07"
+        app:layout_constraintTop_toTopOf="@+id/button_01_00"/>
+
+    <TextView
+        android:id="@+id/button_01_09"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_00_08"
+        app:layout_constraintTop_toBottomOf="@+id/button_00_09"
+
+        />
+
+    <TextView
+        android:id="@+id/button_01_10"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_00_09"
+        app:layout_constraintTop_toTopOf="@+id/button_01_00"
+
+        />
+
+    <TextView
+        android:id="@+id/button_01_11"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_00_10"
+        app:layout_constraintTop_toTopOf="@+id/button_01_00"
+
+        />
+
+    <TextView
+        android:id="@+id/button_01_12"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_00_11"
+        app:layout_constraintTop_toTopOf="@+id/button_01_00"
+
+        />
+
+    <TextView
+        android:id="@+id/button_01_13"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_00_12"
+        app:layout_constraintTop_toTopOf="@+id/button_01_00"
+
+        />
+
+    <TextView
+        android:id="@+id/button_01_14"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_00_13"
+        app:layout_constraintTop_toTopOf="@+id/button_01_00"
+
+        />
+
+    <TextView
+        android:id="@+id/button_01_15"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_00_14"
+        app:layout_constraintTop_toTopOf="@+id/button_01_00"
+
+        />
+
+    <TextView
+        android:id="@+id/button_02_00"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toLeftOf="@+id/button_00_00"
+        app:layout_constraintTop_toBottomOf="@+id/button_01_00" />
+
+    <TextView
+        android:id="@+id/button_02_01"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_00_00"
+        app:layout_constraintTop_toTopOf="@+id/button_02_00" />
+
+    <TextView
+        android:id="@+id/button_02_02"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_00_01"
+        app:layout_constraintTop_toTopOf="@+id/button_02_00" />
+
+    <TextView
+        android:id="@+id/button_02_03"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_00_02"
+        app:layout_constraintTop_toTopOf="@+id/button_02_00" />
+
+    <TextView
+        android:id="@+id/button_02_04"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_00_03"
+        app:layout_constraintTop_toTopOf="@+id/button_02_00" />
+
+    <TextView
+        android:id="@+id/button_02_05"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_00_04"
+        app:layout_constraintTop_toTopOf="@+id/button_02_00" />
+
+    <TextView
+        android:id="@+id/button_02_06"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_00_05"
+        app:layout_constraintTop_toTopOf="@+id/button_02_00" />
+
+    <TextView
+        android:id="@+id/button_02_07"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_02_06"
+        app:layout_constraintTop_toTopOf="@+id/button_02_00" />
+
+    <TextView
+        android:id="@+id/button_02_08"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_00_07"
+        app:layout_constraintTop_toTopOf="@+id/button_02_00" />
+
+    <TextView
+        android:id="@+id/button_02_09"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_00_08"
+        app:layout_constraintTop_toTopOf="@+id/button_02_00" />
+
+    <TextView
+        android:id="@+id/button_02_10"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_00_09"
+        app:layout_constraintTop_toTopOf="@+id/button_02_00" />
+
+    <TextView
+        android:id="@+id/button_02_11"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_00_10"
+        app:layout_constraintTop_toTopOf="@+id/button_02_00" />
+
+    <TextView
+        android:id="@+id/button_02_12"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_02_11"
+        app:layout_constraintTop_toTopOf="@+id/button_02_00" />
+
+    <TextView
+        android:id="@+id/button_02_13"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_00_12"
+        app:layout_constraintTop_toTopOf="@+id/button_02_00" />
+
+    <TextView
+        android:id="@+id/button_02_14"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_00_13"
+        app:layout_constraintTop_toTopOf="@+id/button_02_00" />
+
+    <TextView
+        android:id="@+id/button_02_15"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_00_14"
+        app:layout_constraintTop_toTopOf="@+id/button_02_00" />
+
+    <TextView
+        android:id="@+id/button_03_00"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toLeftOf="@+id/button_00_00"
+        app:layout_constraintTop_toBottomOf="@+id/button_02_00" />
+
+    <TextView
+        android:id="@+id/button_03_01"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_03_00"
+        app:layout_constraintTop_toTopOf="@+id/button_03_00" />
+
+    <TextView
+        android:id="@+id/button_03_02"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_03_01"
+        app:layout_constraintTop_toBottomOf="@+id/button_02_02" />
+
+    <TextView
+        android:id="@+id/button_03_03"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_03_02"
+        app:layout_constraintTop_toBottomOf="@+id/button_02_03" />
+
+    <TextView
+        android:id="@+id/button_03_04"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_03_03"
+        app:layout_constraintTop_toBottomOf="@+id/button_02_04"
+
+        />
+
+    <TextView
+        android:id="@+id/button_03_05"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_03_04"
+        app:layout_constraintTop_toBottomOf="@+id/button_02_05"
+
+        />
+
+    <TextView
+        android:id="@+id/button_03_06"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_03_05"
+        app:layout_constraintTop_toBottomOf="@+id/button_02_06"
+
+        />
+
+    <TextView
+        android:id="@+id/button_03_07"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_03_06"
+        app:layout_constraintTop_toBottomOf="@+id/button_02_07"
+
+        />
+
+    <TextView
+        android:id="@+id/button_03_08"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_03_07"
+        app:layout_constraintTop_toBottomOf="@+id/button_02_08" />
+
+    <TextView
+        android:id="@+id/button_03_09"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_03_08"
+        app:layout_constraintTop_toBottomOf="@+id/button_02_09"
+
+        />
+
+    <TextView
+        android:id="@+id/button_03_10"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_03_09"
+        app:layout_constraintTop_toBottomOf="@+id/button_02_10"
+
+        />
+
+    <TextView
+        android:id="@+id/button_03_11"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_03_10"
+        app:layout_constraintTop_toBottomOf="@+id/button_02_11"
+
+        />
+
+    <TextView
+        android:id="@+id/button_03_12"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_03_11"
+        app:layout_constraintTop_toBottomOf="@+id/button_02_12"
+
+        />
+
+    <TextView
+        android:id="@+id/button_03_13"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_03_12"
+        app:layout_constraintTop_toBottomOf="@+id/button_02_13"
+
+        />
+
+    <TextView
+        android:id="@+id/button_03_14"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_03_13"
+        app:layout_constraintTop_toBottomOf="@+id/button_02_14"
+
+        />
+
+    <TextView
+        android:id="@+id/button_03_15"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_03_14"
+        app:layout_constraintTop_toBottomOf="@+id/button_02_15"
+
+        />
+
+    <TextView
+        android:id="@+id/button_04_00"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toLeftOf="@+id/button_00_00"
+        app:layout_constraintTop_toBottomOf="@+id/button_03_00" />
+
+    <TextView
+        android:id="@+id/button_04_01"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_04_00"
+        app:layout_constraintTop_toBottomOf="@+id/button_03_01" />
+
+    <TextView
+        android:id="@+id/button_04_02"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_04_01"
+        app:layout_constraintTop_toBottomOf="@+id/button_03_02" />
+
+    <TextView
+        android:id="@+id/button_04_03"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_04_02"
+        app:layout_constraintTop_toBottomOf="@+id/button_03_03" />
+
+    <TextView
+        android:id="@+id/button_04_04"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_04_03"
+        app:layout_constraintTop_toBottomOf="@+id/button_03_04"
+
+        />
+
+    <TextView
+        android:id="@+id/button_04_05"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_04_04"
+        app:layout_constraintTop_toBottomOf="@+id/button_03_05"
+
+        />
+
+    <TextView
+        android:id="@+id/button_04_06"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_04_05"
+        app:layout_constraintTop_toBottomOf="@+id/button_03_06"
+
+        />
+
+    <TextView
+        android:id="@+id/button_04_07"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_04_06"
+        app:layout_constraintTop_toBottomOf="@+id/button_03_07"
+
+        />
+
+    <TextView
+        android:id="@+id/button_04_08"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_04_07"
+        app:layout_constraintTop_toBottomOf="@+id/button_03_08" />
+
+    <TextView
+        android:id="@+id/button_04_09"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_04_08"
+        app:layout_constraintTop_toBottomOf="@+id/button_03_09"
+
+        />
+
+    <TextView
+        android:id="@+id/button_04_10"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_04_09"
+        app:layout_constraintTop_toBottomOf="@+id/button_03_10"
+
+        />
+
+    <TextView
+        android:id="@+id/button_04_11"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_04_10"
+        app:layout_constraintTop_toBottomOf="@+id/button_03_11"
+
+        />
+
+    <TextView
+        android:id="@+id/button_04_12"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_04_11"
+        app:layout_constraintTop_toBottomOf="@+id/button_03_12"
+
+        />
+
+    <TextView
+        android:id="@+id/button_04_13"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_04_12"
+        app:layout_constraintTop_toBottomOf="@+id/button_03_13"
+
+        />
+
+    <TextView
+        android:id="@+id/button_04_14"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_04_13"
+        app:layout_constraintTop_toBottomOf="@+id/button_03_14"
+
+        />
+
+    <TextView
+        android:id="@+id/button_04_15"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_04_14"
+        app:layout_constraintTop_toBottomOf="@+id/button_03_15"
+
+        />
+
+    <TextView
+        android:id="@+id/button_05_00"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toLeftOf="@+id/button_00_00"
+        app:layout_constraintTop_toBottomOf="@+id/button_04_00" />
+
+    <TextView
+        android:id="@+id/button_05_01"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_00_00"
+        app:layout_constraintTop_toTopOf="@+id/button_05_00" />
+
+    <TextView
+        android:id="@+id/button_05_02"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_00_01"
+        app:layout_constraintTop_toTopOf="@+id/button_05_00" />
+
+    <TextView
+        android:id="@+id/button_05_03"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_00_02"
+        app:layout_constraintTop_toTopOf="@+id/button_05_00" />
+
+    <TextView
+        android:id="@+id/button_05_04"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_00_03"
+        app:layout_constraintTop_toTopOf="@+id/button_05_00" />
+
+    <TextView
+        android:id="@+id/button_05_05"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_00_04"
+        app:layout_constraintTop_toTopOf="@+id/button_05_00" />
+
+    <TextView
+        android:id="@+id/button_05_06"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_00_05"
+        app:layout_constraintTop_toTopOf="@+id/button_05_00" />
+
+    <TextView
+        android:id="@+id/button_05_07"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_00_06"
+        app:layout_constraintTop_toTopOf="@+id/button_05_00" />
+
+    <TextView
+        android:id="@+id/button_05_08"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_00_07"
+        app:layout_constraintTop_toTopOf="@+id/button_05_00" />
+
+    <TextView
+        android:id="@+id/button_05_09"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_00_08"
+        app:layout_constraintTop_toTopOf="@+id/button_05_00" />
+
+    <TextView
+        android:id="@+id/button_05_10"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_00_09"
+        app:layout_constraintTop_toTopOf="@+id/button_05_00" />
+
+    <TextView
+        android:id="@+id/button_05_11"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_00_10"
+        app:layout_constraintTop_toTopOf="@+id/button_05_00" />
+
+    <TextView
+        android:id="@+id/button_05_12"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_00_11"
+        app:layout_constraintTop_toTopOf="@+id/button_05_00" />
+
+    <TextView
+        android:id="@+id/button_05_13"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_00_12"
+        app:layout_constraintTop_toTopOf="@+id/button_05_00" />
+
+    <TextView
+        android:id="@+id/button_05_14"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_00_13"
+        app:layout_constraintTop_toTopOf="@+id/button_05_00" />
+
+    <TextView
+        android:id="@+id/button_05_15"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_00_14"
+        app:layout_constraintTop_toTopOf="@+id/button_05_00" />
+
+    <TextView
+        android:id="@+id/button_06_00"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toLeftOf="@+id/button_00_00"
+        app:layout_constraintTop_toBottomOf="@+id/button_05_00" />
+
+    <TextView
+        android:id="@+id/button_06_01"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_06_00"
+        app:layout_constraintTop_toBottomOf="@+id/button_05_01" />
+
+    <TextView
+        android:id="@+id/button_06_02"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_06_01"
+        app:layout_constraintTop_toBottomOf="@+id/button_05_02" />
+
+    <TextView
+        android:id="@+id/button_06_03"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_06_02"
+        app:layout_constraintTop_toBottomOf="@+id/button_05_03" />
+
+    <TextView
+        android:id="@+id/button_06_04"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_06_03"
+        app:layout_constraintTop_toBottomOf="@+id/button_05_04"
+
+        />
+
+    <TextView
+        android:id="@+id/button_06_05"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_06_04"
+        app:layout_constraintTop_toBottomOf="@+id/button_05_05"
+
+        />
+
+    <TextView
+        android:id="@+id/button_06_06"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_06_05"
+        app:layout_constraintTop_toBottomOf="@+id/button_05_06"
+
+        />
+
+    <TextView
+        android:id="@+id/button_06_07"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_06_06"
+        app:layout_constraintTop_toBottomOf="@+id/button_05_07"
+
+        />
+
+    <TextView
+        android:id="@+id/button_06_08"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_06_07"
+        app:layout_constraintTop_toBottomOf="@+id/button_05_08" />
+
+    <TextView
+        android:id="@+id/button_06_09"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_06_08"
+        app:layout_constraintTop_toBottomOf="@+id/button_05_09"
+
+        />
+
+    <TextView
+        android:id="@+id/button_06_10"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_06_09"
+        app:layout_constraintTop_toBottomOf="@+id/button_05_10"
+
+        />
+
+    <TextView
+        android:id="@+id/button_06_11"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_06_10"
+        app:layout_constraintTop_toBottomOf="@+id/button_05_11"
+
+        />
+
+    <TextView
+        android:id="@+id/button_06_12"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_06_11"
+        app:layout_constraintTop_toBottomOf="@+id/button_05_12"
+
+        />
+
+    <TextView
+        android:id="@+id/button_06_13"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_06_12"
+        app:layout_constraintTop_toBottomOf="@+id/button_05_13"
+
+        />
+
+    <TextView
+        android:id="@+id/button_06_14"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_06_13"
+        app:layout_constraintTop_toBottomOf="@+id/button_05_14"
+
+        />
+
+    <TextView
+        android:id="@+id/button_06_15"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_06_14"
+        app:layout_constraintTop_toBottomOf="@+id/button_05_15"
+
+        />
+
+    <TextView
+        android:id="@+id/button_07_00"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toLeftOf="@+id/button_00_00"
+        app:layout_constraintTop_toBottomOf="@+id/button_06_00" />
+
+    <TextView
+        android:id="@+id/button_07_01"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_07_00"
+        app:layout_constraintTop_toBottomOf="@+id/button_06_01" />
+
+    <TextView
+        android:id="@+id/button_07_02"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_07_01"
+        app:layout_constraintTop_toBottomOf="@+id/button_06_02" />
+
+    <TextView
+        android:id="@+id/button_07_03"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_07_02"
+        app:layout_constraintTop_toBottomOf="@+id/button_06_03" />
+
+    <TextView
+        android:id="@+id/button_07_04"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_07_03"
+        app:layout_constraintTop_toBottomOf="@+id/button_06_04"
+
+        />
+
+    <TextView
+        android:id="@+id/button_07_05"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_07_04"
+        app:layout_constraintTop_toBottomOf="@+id/button_06_05"
+
+        />
+
+    <TextView
+        android:id="@+id/button_07_06"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_07_05"
+        app:layout_constraintTop_toBottomOf="@+id/button_06_06"
+
+        />
+
+    <TextView
+        android:id="@+id/button_07_07"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_07_06"
+        app:layout_constraintTop_toBottomOf="@+id/button_06_07"
+
+        />
+
+    <TextView
+        android:id="@+id/button_07_08"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_07_07"
+        app:layout_constraintTop_toBottomOf="@+id/button_06_08" />
+
+    <TextView
+        android:id="@+id/button_07_09"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_07_08"
+        app:layout_constraintTop_toBottomOf="@+id/button_06_09"
+
+        />
+
+    <TextView
+        android:id="@+id/button_07_10"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_07_09"
+        app:layout_constraintTop_toBottomOf="@+id/button_06_10"
+
+        />
+
+    <TextView
+        android:id="@+id/button_07_11"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_07_10"
+        app:layout_constraintTop_toBottomOf="@+id/button_06_11"
+
+        />
+
+    <TextView
+        android:id="@+id/button_07_12"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_07_11"
+        app:layout_constraintTop_toBottomOf="@+id/button_06_12"
+
+        />
+
+    <TextView
+        android:id="@+id/button_07_13"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_07_12"
+        app:layout_constraintTop_toBottomOf="@+id/button_06_13"
+
+        />
+
+    <TextView
+        android:id="@+id/button_07_14"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_07_13"
+        app:layout_constraintTop_toBottomOf="@+id/button_06_14"
+
+        />
+
+    <TextView
+        android:id="@+id/button_07_15"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_07_14"
+        app:layout_constraintTop_toBottomOf="@+id/button_06_15"
+
+        />
+
+    <TextView
+        android:id="@+id/button_08_00"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toLeftOf="@+id/button_00_00"
+        app:layout_constraintTop_toBottomOf="@+id/button_07_00" />
+
+    <TextView
+        android:id="@+id/button_08_01"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_08_00"
+        app:layout_constraintTop_toBottomOf="@+id/button_07_01" />
+
+    <TextView
+        android:id="@+id/button_08_02"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_08_01"
+        app:layout_constraintTop_toBottomOf="@+id/button_07_02" />
+
+    <TextView
+        android:id="@+id/button_08_03"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_08_02"
+        app:layout_constraintTop_toBottomOf="@+id/button_07_03" />
+
+    <TextView
+        android:id="@+id/button_08_04"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_08_03"
+        app:layout_constraintTop_toBottomOf="@+id/button_07_04" />
+
+    <TextView
+        android:id="@+id/button_08_05"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_08_04"
+        app:layout_constraintTop_toBottomOf="@+id/button_07_05" />
+
+    <TextView
+        android:id="@+id/button_08_06"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_08_05"
+        app:layout_constraintTop_toBottomOf="@+id/button_07_06" />
+
+    <TextView
+        android:id="@+id/button_08_07"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_08_06"
+        app:layout_constraintTop_toBottomOf="@+id/button_07_07" />
+
+    <TextView
+        android:id="@+id/button_08_08"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_08_07"
+        app:layout_constraintTop_toBottomOf="@+id/button_07_08" />
+
+    <TextView
+        android:id="@+id/button_08_09"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_08_08"
+        app:layout_constraintTop_toBottomOf="@+id/button_07_09" />
+
+    <TextView
+        android:id="@+id/button_08_10"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_08_09"
+        app:layout_constraintTop_toBottomOf="@+id/button_07_10" />
+
+    <TextView
+        android:id="@+id/button_08_11"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_08_10"
+        app:layout_constraintTop_toBottomOf="@+id/button_07_11" />
+
+    <TextView
+        android:id="@+id/button_08_12"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_08_11"
+        app:layout_constraintTop_toBottomOf="@+id/button_07_12" />
+
+    <TextView
+        android:id="@+id/button_08_13"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_08_12"
+        app:layout_constraintTop_toBottomOf="@+id/button_07_13" />
+
+    <TextView
+        android:id="@+id/button_08_14"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_08_13"
+        app:layout_constraintTop_toBottomOf="@+id/button_07_14" />
+
+    <TextView
+        android:id="@+id/button_08_15"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_08_14"
+        app:layout_constraintTop_toBottomOf="@+id/button_07_15" />
+
+    <TextView
+        android:id="@+id/button_09_00"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toLeftOf="@+id/button_00_00"
+        app:layout_constraintTop_toBottomOf="@+id/button_08_00" />
+
+    <TextView
+        android:id="@+id/button_09_01"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_09_00"
+        app:layout_constraintTop_toBottomOf="@+id/button_08_01" />
+
+    <TextView
+        android:id="@+id/button_09_02"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_09_01"
+        app:layout_constraintTop_toBottomOf="@+id/button_08_02" />
+
+    <TextView
+        android:id="@+id/button_09_03"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_09_02"
+        app:layout_constraintTop_toBottomOf="@+id/button_08_03" />
+
+    <TextView
+        android:id="@+id/button_09_04"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_09_03"
+        app:layout_constraintTop_toBottomOf="@+id/button_08_04"
+
+        />
+
+    <TextView
+        android:id="@+id/button_09_05"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_09_04"
+        app:layout_constraintTop_toBottomOf="@+id/button_08_05"
+
+        />
+
+    <TextView
+        android:id="@+id/button_09_06"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_09_05"
+        app:layout_constraintTop_toBottomOf="@+id/button_08_06"
+
+        />
+
+    <TextView
+        android:id="@+id/button_09_07"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_09_06"
+        app:layout_constraintTop_toBottomOf="@+id/button_08_07"
+
+        />
+
+    <TextView
+        android:id="@+id/button_09_08"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_09_07"
+        app:layout_constraintTop_toBottomOf="@+id/button_08_08" />
+
+    <TextView
+        android:id="@+id/button_09_09"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_09_08"
+        app:layout_constraintTop_toBottomOf="@+id/button_08_09"
+
+        />
+
+    <TextView
+        android:id="@+id/button_09_10"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_09_09"
+        app:layout_constraintTop_toBottomOf="@+id/button_08_10"
+
+        />
+
+    <TextView
+        android:id="@+id/button_09_11"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_09_10"
+        app:layout_constraintTop_toBottomOf="@+id/button_08_11"
+
+        />
+
+    <TextView
+        android:id="@+id/button_09_12"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_09_11"
+        app:layout_constraintTop_toBottomOf="@+id/button_08_12"
+
+        />
+
+    <TextView
+        android:id="@+id/button_09_13"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_09_12"
+        app:layout_constraintTop_toBottomOf="@+id/button_08_13"
+
+        />
+
+    <TextView
+        android:id="@+id/button_09_14"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_09_13"
+        app:layout_constraintTop_toBottomOf="@+id/button_08_14"
+
+        />
+
+    <TextView
+        android:id="@+id/button_09_15"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_09_14"
+        app:layout_constraintTop_toBottomOf="@+id/button_08_15"
+
+        />
+
+    <TextView
+        android:id="@+id/button_10_00"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toLeftOf="@+id/button_00_00"
+        app:layout_constraintTop_toBottomOf="@+id/button_09_00" />
+
+    <TextView
+        android:id="@+id/button_10_01"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_10_00"
+        app:layout_constraintTop_toBottomOf="@+id/button_09_01" />
+
+    <TextView
+        android:id="@+id/button_10_02"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_10_01"
+        app:layout_constraintTop_toBottomOf="@+id/button_09_02" />
+
+    <TextView
+        android:id="@+id/button_10_03"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_10_02"
+        app:layout_constraintTop_toBottomOf="@+id/button_09_03" />
+
+    <TextView
+        android:id="@+id/button_10_04"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_10_03"
+        app:layout_constraintTop_toBottomOf="@+id/button_09_04"
+
+        />
+
+    <TextView
+        android:id="@+id/button_10_05"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_10_04"
+        app:layout_constraintTop_toBottomOf="@+id/button_09_05"
+
+        />
+
+    <TextView
+        android:id="@+id/button_10_06"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_10_05"
+        app:layout_constraintTop_toBottomOf="@+id/button_09_06"
+
+        />
+
+    <TextView
+        android:id="@+id/button_10_07"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_10_06"
+        app:layout_constraintTop_toBottomOf="@+id/button_09_07"
+
+        />
+
+    <TextView
+        android:id="@+id/button_10_08"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_10_07"
+        app:layout_constraintTop_toBottomOf="@+id/button_09_08" />
+
+    <TextView
+        android:id="@+id/button_10_09"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_10_08"
+        app:layout_constraintTop_toBottomOf="@+id/button_09_09"
+
+        />
+
+    <TextView
+        android:id="@+id/button_10_10"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_10_09"
+        app:layout_constraintTop_toBottomOf="@+id/button_09_10"
+
+        />
+
+    <TextView
+        android:id="@+id/button_10_11"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_10_10"
+        app:layout_constraintTop_toBottomOf="@+id/button_09_11"
+
+        />
+
+    <TextView
+        android:id="@+id/button_10_12"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_10_11"
+        app:layout_constraintTop_toBottomOf="@+id/button_09_12"
+
+        />
+
+    <TextView
+        android:id="@+id/button_10_13"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_10_12"
+        app:layout_constraintTop_toBottomOf="@+id/button_09_13"
+
+        />
+
+    <TextView
+        android:id="@+id/button_10_14"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_10_13"
+        app:layout_constraintTop_toBottomOf="@+id/button_09_14"
+
+        />
+
+    <TextView
+        android:id="@+id/button_10_15"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_10_14"
+        app:layout_constraintTop_toBottomOf="@+id/button_09_15"
+
+        />
+
+    <TextView
+        android:id="@+id/button_11_00"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toLeftOf="@+id/button_00_00"
+        app:layout_constraintTop_toBottomOf="@+id/button_10_00" />
+
+    <TextView
+        android:id="@+id/button_11_01"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_11_00"
+        app:layout_constraintTop_toBottomOf="@+id/button_10_01" />
+
+    <TextView
+        android:id="@+id/button_11_02"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_11_01"
+        app:layout_constraintTop_toBottomOf="@+id/button_10_02" />
+
+    <TextView
+        android:id="@+id/button_11_03"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_11_02"
+        app:layout_constraintTop_toBottomOf="@+id/button_10_03" />
+
+    <TextView
+        android:id="@+id/button_11_04"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_11_03"
+        app:layout_constraintTop_toBottomOf="@+id/button_10_04" />
+
+    <TextView
+        android:id="@+id/button_11_05"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_11_04"
+        app:layout_constraintTop_toBottomOf="@+id/button_10_05" />
+
+    <TextView
+        android:id="@+id/button_11_06"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_11_05"
+        app:layout_constraintTop_toBottomOf="@+id/button_10_06" />
+
+    <TextView
+        android:id="@+id/button_11_07"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_11_06"
+        app:layout_constraintTop_toBottomOf="@+id/button_10_07" />
+
+    <TextView
+        android:id="@+id/button_11_08"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_11_07"
+        app:layout_constraintTop_toBottomOf="@+id/button_10_08" />
+
+    <TextView
+        android:id="@+id/button_11_09"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_11_08"
+        app:layout_constraintTop_toBottomOf="@+id/button_10_09" />
+
+    <TextView
+        android:id="@+id/button_11_10"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_11_09"
+        app:layout_constraintTop_toBottomOf="@+id/button_10_10" />
+
+    <TextView
+        android:id="@+id/button_11_11"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_11_10"
+        app:layout_constraintTop_toBottomOf="@+id/button_10_11" />
+
+    <TextView
+        android:id="@+id/button_11_12"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_11_11"
+        app:layout_constraintTop_toBottomOf="@+id/button_10_12" />
+
+    <TextView
+        android:id="@+id/button_11_13"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_11_12"
+        app:layout_constraintTop_toBottomOf="@+id/button_10_13" />
+
+    <TextView
+        android:id="@+id/button_11_14"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_11_13"
+        app:layout_constraintTop_toBottomOf="@+id/button_10_14" />
+
+    <TextView
+        android:id="@+id/button_11_15"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_11_14"
+        app:layout_constraintTop_toBottomOf="@+id/button_10_15" />
+
+    <TextView
+        android:id="@+id/button_12_00"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toLeftOf="@+id/button_00_00"
+        app:layout_constraintTop_toBottomOf="@+id/button_11_00" />
+
+    <TextView
+        android:id="@+id/button_12_01"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_12_00"
+        app:layout_constraintTop_toBottomOf="@+id/button_11_01" />
+
+    <TextView
+        android:id="@+id/button_12_02"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_12_01"
+        app:layout_constraintTop_toBottomOf="@+id/button_11_02" />
+
+    <TextView
+        android:id="@+id/button_12_03"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_12_02"
+        app:layout_constraintTop_toBottomOf="@+id/button_11_03" />
+
+    <TextView
+        android:id="@+id/button_12_04"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_12_03"
+        app:layout_constraintTop_toBottomOf="@+id/button_11_04"
+
+        />
+
+    <TextView
+        android:id="@+id/button_12_05"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_12_04"
+        app:layout_constraintTop_toBottomOf="@+id/button_11_05"
+
+        />
+
+    <TextView
+        android:id="@+id/button_12_06"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_12_05"
+        app:layout_constraintTop_toBottomOf="@+id/button_11_06"
+
+        />
+
+    <TextView
+        android:id="@+id/button_12_07"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_12_06"
+        app:layout_constraintTop_toBottomOf="@+id/button_11_07"
+
+        />
+
+    <TextView
+        android:id="@+id/button_12_08"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_12_07"
+        app:layout_constraintTop_toBottomOf="@+id/button_11_08" />
+
+    <TextView
+        android:id="@+id/button_12_09"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_12_08"
+        app:layout_constraintTop_toBottomOf="@+id/button_11_09"
+
+        />
+
+    <TextView
+        android:id="@+id/button_12_10"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_12_09"
+        app:layout_constraintTop_toBottomOf="@+id/button_11_10"
+
+        />
+
+    <TextView
+        android:id="@+id/button_12_11"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_12_10"
+        app:layout_constraintTop_toBottomOf="@+id/button_11_11"
+
+        />
+
+    <TextView
+        android:id="@+id/button_12_12"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_12_11"
+        app:layout_constraintTop_toBottomOf="@+id/button_11_12"
+
+        />
+
+    <TextView
+        android:id="@+id/button_12_13"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_12_12"
+        app:layout_constraintTop_toBottomOf="@+id/button_11_13"
+
+        />
+
+    <TextView
+        android:id="@+id/button_12_14"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_12_13"
+        app:layout_constraintTop_toBottomOf="@+id/button_11_14"
+
+        />
+
+    <TextView
+        android:id="@+id/button_12_15"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_12_14"
+        app:layout_constraintTop_toBottomOf="@+id/button_11_15"
+
+        />
+
+    <TextView
+        android:id="@+id/button_13_00"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toLeftOf="@+id/button_00_00"
+        app:layout_constraintTop_toBottomOf="@+id/button_12_00" />
+
+    <TextView
+        android:id="@+id/button_13_01"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_13_00"
+        app:layout_constraintTop_toBottomOf="@+id/button_12_01" />
+
+    <TextView
+        android:id="@+id/button_13_02"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_13_01"
+        app:layout_constraintTop_toBottomOf="@+id/button_12_02" />
+
+    <TextView
+        android:id="@+id/button_13_03"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_13_02"
+        app:layout_constraintTop_toBottomOf="@+id/button_12_03" />
+
+    <TextView
+        android:id="@+id/button_13_04"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_13_03"
+        app:layout_constraintTop_toBottomOf="@+id/button_12_04"
+
+        />
+
+    <TextView
+        android:id="@+id/button_13_05"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_13_04"
+        app:layout_constraintTop_toBottomOf="@+id/button_12_05"
+
+        />
+
+    <TextView
+        android:id="@+id/button_13_06"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_13_05"
+        app:layout_constraintTop_toBottomOf="@+id/button_12_06"
+
+        />
+
+    <TextView
+        android:id="@+id/button_13_07"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_13_06"
+        app:layout_constraintTop_toBottomOf="@+id/button_12_07"
+
+        />
+
+    <TextView
+        android:id="@+id/button_13_08"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_13_07"
+        app:layout_constraintTop_toBottomOf="@+id/button_12_08" />
+
+    <TextView
+        android:id="@+id/button_13_09"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_13_08"
+        app:layout_constraintTop_toBottomOf="@+id/button_12_09"
+
+        />
+
+    <TextView
+        android:id="@+id/button_13_10"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_13_09"
+        app:layout_constraintTop_toBottomOf="@+id/button_12_10"
+
+        />
+
+    <TextView
+        android:id="@+id/button_13_11"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_13_10"
+        app:layout_constraintTop_toBottomOf="@+id/button_12_11"
+
+        />
+
+    <TextView
+        android:id="@+id/button_13_12"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_13_11"
+        app:layout_constraintTop_toBottomOf="@+id/button_12_12" />
+
+    <TextView
+        android:id="@+id/button_13_13"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_13_12"
+        app:layout_constraintTop_toBottomOf="@+id/button_12_13"
+
+        />
+
+    <TextView
+        android:id="@+id/button_13_14"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_13_13"
+        app:layout_constraintTop_toBottomOf="@+id/button_12_14"
+
+        />
+
+    <TextView
+        android:id="@+id/button_13_15"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_13_14"
+        app:layout_constraintTop_toBottomOf="@+id/button_12_15"
+
+        />
+
+    <TextView
+        android:id="@+id/button_14_00"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toLeftOf="@+id/button_00_00"
+        app:layout_constraintTop_toBottomOf="@+id/button_13_00" />
+
+    <TextView
+        android:id="@+id/button_14_01"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_14_00"
+        app:layout_constraintTop_toBottomOf="@+id/button_13_01" />
+
+    <TextView
+        android:id="@+id/button_14_02"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_14_01"
+        app:layout_constraintTop_toBottomOf="@+id/button_13_02" />
+
+    <TextView
+        android:id="@+id/button_14_03"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_14_02"
+        app:layout_constraintTop_toBottomOf="@+id/button_13_03" />
+
+    <TextView
+        android:id="@+id/button_14_04"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_14_03"
+        app:layout_constraintTop_toBottomOf="@+id/button_13_04" />
+
+    <TextView
+        android:id="@+id/button_14_05"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_14_04"
+        app:layout_constraintTop_toBottomOf="@+id/button_13_05" />
+
+    <TextView
+        android:id="@+id/button_14_06"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_14_05"
+        app:layout_constraintTop_toBottomOf="@+id/button_13_06" />
+
+    <TextView
+        android:id="@+id/button_14_07"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_14_06"
+        app:layout_constraintTop_toBottomOf="@+id/button_13_07" />
+
+    <TextView
+        android:id="@+id/button_14_08"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_14_07"
+        app:layout_constraintTop_toBottomOf="@+id/button_13_08" />
+
+    <TextView
+        android:id="@+id/button_14_09"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_14_08"
+        app:layout_constraintTop_toBottomOf="@+id/button_13_09" />
+
+    <TextView
+        android:id="@+id/button_14_10"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_14_09"
+        app:layout_constraintTop_toBottomOf="@+id/button_13_10" />
+
+    <TextView
+        android:id="@+id/button_14_11"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_14_10"
+        app:layout_constraintTop_toBottomOf="@+id/button_13_11" />
+
+    <TextView
+        android:id="@+id/button_14_12"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_14_11"
+        app:layout_constraintTop_toBottomOf="@+id/button_13_12" />
+
+    <TextView
+        android:id="@+id/button_14_13"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_14_12"
+        app:layout_constraintTop_toBottomOf="@+id/button_13_13" />
+
+    <TextView
+        android:id="@+id/button_14_14"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_14_13"
+        app:layout_constraintTop_toBottomOf="@+id/button_13_14" />
+
+    <TextView
+        android:id="@+id/button_14_15"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_11_14"
+        app:layout_constraintTop_toBottomOf="@+id/button_13_15" />
+
+    <TextView
+        android:id="@+id/button_15_00"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toLeftOf="@+id/button_00_00"
+        app:layout_constraintTop_toBottomOf="@+id/button_14_00" />
+
+    <TextView
+        android:id="@+id/button_15_01"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_15_00"
+        app:layout_constraintTop_toBottomOf="@+id/button_14_01" />
+
+    <TextView
+        android:id="@+id/button_15_02"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_15_01"
+        app:layout_constraintTop_toBottomOf="@+id/button_14_02" />
+
+    <TextView
+        android:id="@+id/button_15_03"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_15_02"
+        app:layout_constraintTop_toBottomOf="@+id/button_14_03" />
+
+    <TextView
+        android:id="@+id/button_15_04"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_15_03"
+        app:layout_constraintTop_toBottomOf="@+id/button_14_04"
+
+        />
+
+    <TextView
+        android:id="@+id/button_15_05"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_15_04"
+        app:layout_constraintTop_toBottomOf="@+id/button_14_05"
+
+        />
+
+    <TextView
+        android:id="@+id/button_15_06"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_15_05"
+        app:layout_constraintTop_toBottomOf="@+id/button_14_06"
+
+        />
+
+    <TextView
+        android:id="@+id/button_15_07"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_15_06"
+        app:layout_constraintTop_toBottomOf="@+id/button_14_07"
+
+        />
+
+    <TextView
+        android:id="@+id/button_15_08"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_15_07"
+        app:layout_constraintTop_toBottomOf="@+id/button_14_08" />
+
+    <TextView
+        android:id="@+id/button_15_09"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_15_08"
+        app:layout_constraintTop_toBottomOf="@+id/button_14_09"
+
+        />
+
+    <TextView
+        android:id="@+id/button_15_10"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_15_09"
+        app:layout_constraintTop_toBottomOf="@+id/button_14_10"
+
+        />
+
+    <TextView
+        android:id="@+id/button_15_11"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_15_10"
+        app:layout_constraintTop_toBottomOf="@+id/button_14_11"
+
+        />
+
+    <TextView
+        android:id="@+id/button_15_12"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_15_11"
+        app:layout_constraintTop_toBottomOf="@+id/button_14_12"
+
+        />
+
+    <TextView
+        android:id="@+id/button_15_13"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_15_12"
+        app:layout_constraintTop_toBottomOf="@+id/button_14_13"
+
+        />
+
+    <TextView
+        android:id="@+id/button_15_14"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_15_13"
+        app:layout_constraintTop_toBottomOf="@+id/button_14_14"
+
+        />
+
+    <TextView
+        android:id="@+id/button_15_15"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="@string/UnderBar" android:background="@drawable/border"
+        app:layout_constraintLeft_toRightOf="@+id/button_15_14"
+        app:layout_constraintTop_toBottomOf="@+id/button_14_15"
+
+        />
+
+</android.support.constraint.ConstraintLayout>
