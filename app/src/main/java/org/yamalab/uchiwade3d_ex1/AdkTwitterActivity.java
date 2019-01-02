@@ -32,7 +32,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.yamalab.uchiwade3d_ex1.R;
 import org.yamalab.uchiwade3d_ex1.service.AdkService;
 import org.yamalab.uchiwade3d_ex1.service.AdkThread;
 import org.yamalab.uchiwade3d_ex1.service.StringMsg;
@@ -74,7 +73,7 @@ public class AdkTwitterActivity extends Activity implements OnClickListener {
 	TextView mLogLabel;// = (TextView) findViewById(R.id.main_log_label);
 
 	TextView m3DInLabel;
-	TextView m3DViewLabel;
+	TextView mFioLabel;
 
 	EditText mLogArea;
 	LinearLayout mInputContainer;
@@ -88,6 +87,7 @@ public class AdkTwitterActivity extends Activity implements OnClickListener {
 
 //	android.support.constraint.ConstraintLayout m3DInputContainer;
 	View m3DInputContainer;
+	View mFileIOContainer;
 
 
 	Drawable mFocusedTabImage;
@@ -198,6 +198,7 @@ public class AdkTwitterActivity extends Activity implements OnClickListener {
 		mTwitterLoginController = new TwitterLoginControllerGUI(this,mTwitterController);
 		mTweet = new TweetGUI(this,mTwitterController);
 		mThreeDimensionInputController = new ThreeDimensionInputController(this);
+		mThreeDimensionInputController.init();
 
 		/* */
 		Log.d(TAG,"showControls-1");
@@ -210,7 +211,9 @@ public class AdkTwitterActivity extends Activity implements OnClickListener {
 		mTweetContainer = findViewById(R.id.tweet);
 		mTwitterLoginContainer = (LinearLayout) findViewById(R.id.tweetlogin);
 		mLogContainer = findViewById(R.id.log);
-
+		m3DInputContainer=findViewById(R.id.three_dimension_input);
+//		mFileIOContainer=findViewById(R.id.file_io_container);
+/*
 		// レイアウトインフレーターを取得
 		final android.view.LayoutInflater inflater1 = android.view.LayoutInflater.from(this);
 
@@ -225,14 +228,14 @@ public class AdkTwitterActivity extends Activity implements OnClickListener {
 
 						 ;
 					 });
-
+*/
 		Log.d(TAG,"showControls-2");
 		mInputLabel = findViewById(R.id.main_input_label);
 		mOutputLabel = findViewById(R.id.main_output_label);
 		mInOutLabel = findViewById(R.id.main_inout_label);
 		mStopLabel = findViewById(R.id.main_stop_label);
 		m3DInLabel = findViewById(R.id.main_3D_In_label);
-		m3DViewLabel = findViewById(R.id.main_3D_View_label);
+		mFioLabel = findViewById(R.id.main_fio_label);
 		/* */
 		mTwitterLabel = findViewById(R.id.main_twitter_label);
 		mTweetLabel = findViewById(R.id.main_tweet_label);
@@ -256,6 +259,7 @@ public class AdkTwitterActivity extends Activity implements OnClickListener {
 		mTwitterLoginLabel.setOnClickListener(this);
 		mLogLabel.setOnClickListener(this);
 		m3DInLabel.setOnClickListener(this);
+		mFioLabel.setOnClickListener(this);
 		showTabContents(R.id.main_input_label);
 //		mTweet.setSetting(this.setting);
 
@@ -269,6 +273,7 @@ public class AdkTwitterActivity extends Activity implements OnClickListener {
 		mTwitterController = null;
 		mTwitterLoginController = null;
 		mTweet = null;
+		m3DInputContainer=null;
 	}
 
 	public void showTabContents(int id) {
@@ -287,6 +292,8 @@ public class AdkTwitterActivity extends Activity implements OnClickListener {
 		mTwitterLoginLabel.setBackgroundDrawable(mNormalTabImage);
 		mLogContainer.setVisibility(View.GONE);
 		mLogLabel.setBackgroundDrawable(mNormalTabImage);
+		m3DInputContainer.setVisibility(View.GONE);
+		m3DInLabel.setBackgroundDrawable(mNormalTabImage);
 
 		if (id==R.id.main_inout_label) {
 			Log.d(TAG,"showTabContents -main_inout_label id="+id);
@@ -307,12 +314,13 @@ public class AdkTwitterActivity extends Activity implements OnClickListener {
 		else
 		if(id==R.id.main_3D_In_label){
 			Log.d(TAG,"showTabContents -main_3D_In_label id="+id);
-			setContentView(R.layout.three_dimension_input);
-			mThreeDimensionInputController.init();
+			m3DInputContainer.setVisibility(View.VISIBLE);
+//			setContentView(R.layout.three_dimension_input);
+//			mThreeDimensionInputController.init();
 			m3DInLabel.setBackgroundDrawable(mFocusedTabImage);
 		}
 		else
-		if(id==R.id.main_3D_View_label){
+		if(id==R.id.main_fio_label){
 
 		}
 		else

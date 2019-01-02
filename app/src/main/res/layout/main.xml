@@ -36,7 +36,7 @@
 			/>
 
 		<TextView
-			android:id="@+id/main_3D_View_label"
+			android:id="@+id/main_fio_label"
 			style="@style/DemoKitTextBase"
 			android:layout_width="wrap_content"
 			android:layout_height="match_parent"
@@ -45,7 +45,7 @@
 			android:clickable="true"
 			android:gravity="center"
 			android:textSize="18dp"
-			android:text="3D-V"
+			android:text="FIO"
 			/>
 
 		<TextView
@@ -114,6 +114,8 @@
 		<include layout="@layout/inputcontainer" android:id="@+id/inputContainer"
 			android:layout_width="match_parent" android:layout_height="wrap_content" />
 		<include layout="@layout/outputcontainer" android:id="@+id/outputContainer"
+			android:layout_width="match_parent" android:layout_height="wrap_content" />
+		<include layout="@layout/three_dimension_input" android:id="@+id/three_dimension_input"
 			android:layout_width="match_parent" android:layout_height="wrap_content" />
 		<include layout="@layout/twitter_main" android:id="@+id/twitter_main"
 			android:layout_width="match_parent" android:layout_height="wrap_content" />

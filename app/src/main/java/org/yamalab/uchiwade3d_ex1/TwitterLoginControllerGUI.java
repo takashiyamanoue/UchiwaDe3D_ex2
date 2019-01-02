@@ -19,7 +19,7 @@ public class TwitterLoginControllerGUI extends AccessoryController {
     WebView webView;
     TwitterControllerGUI mTwitterControllerGUI;
     Twitter mTwitter;
-   RequestToken requestToken;
+    RequestToken requestToken;
 	TwitterLoginControllerGUI(AdkTwitterActivity hostActivity, TwitterControllerGUI tc) {
         super(hostActivity);
 		Log.d(TAG,"TwitterLoginCntrller");
