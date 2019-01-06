@@ -24,7 +24,7 @@ public class ThreeDimensionInputController extends AccessoryController
     private TextViewWithColor inputSliceImage[][];
     private TextViewWithColor presetColors[];
     int tDImage[][][];
-    int maxDepth=8;
+    int maxDepth=7;
 
     private int[][] mBitMap_1;
     private int[][] mBitMap_2;

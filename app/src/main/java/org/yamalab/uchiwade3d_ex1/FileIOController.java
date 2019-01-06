@@ -96,7 +96,7 @@ public class FileIOController  extends AccessoryController
 
     @Override
     public void onClick(View v) {
-        // 
+        //
         if(this.mHostActivity==null) return;
         if(v==mLoadButton){
             String sx=mSelectedNumber.getText().toString();
