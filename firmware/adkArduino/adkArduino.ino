@@ -250,8 +250,8 @@ int digitalOuts[digitalOutMax];
 int digitalVal;
 
 AndroidAccessory acc("Google, Inc.",
-		     "Twitter2NeoMatrixEx5",
-		     "Arduino Board for twitter2neomatrixex5",
+		     "uchiwaDe3D_ex1",
+		     "Arduino Board for uchiwaDe3D_ex1",
 		     "1.0",
 		     "http://www.android.com",
 		     "0000000012345000");

@@ -98,6 +98,7 @@ public class AdkTwitterActivity extends Activity implements OnClickListener {
 	TwitterLoginControllerGUI mTwitterLoginController;
 	TweetGUI mTweet;
 	ThreeDimensionInputController mThreeDimensionInputController;
+	FileIOController mFileIOController;
 	public Properties setting;
 	TweetGUI connector;
 //	public Hashtable properties;
@@ -199,6 +200,9 @@ public class AdkTwitterActivity extends Activity implements OnClickListener {
 		mTweet = new TweetGUI(this,mTwitterController);
 		mThreeDimensionInputController = new ThreeDimensionInputController(this);
 		mThreeDimensionInputController.init();
+		mFileIOController = new FileIOController(this);
+
+		mFileIOController.set3DEditor(mThreeDimensionInputController);
 
 		/* */
 		Log.d(TAG,"showControls-1");
@@ -212,7 +216,7 @@ public class AdkTwitterActivity extends Activity implements OnClickListener {
 		mTwitterLoginContainer = (LinearLayout) findViewById(R.id.tweetlogin);
 		mLogContainer = findViewById(R.id.log);
 		m3DInputContainer=findViewById(R.id.three_dimension_input);
-//		mFileIOContainer=findViewById(R.id.file_io_container);
+		mFileIOContainer=findViewById(R.id.file_io_container);
 /*
 		// レイアウトインフレーターを取得
 		final android.view.LayoutInflater inflater1 = android.view.LayoutInflater.from(this);
@@ -228,6 +232,22 @@ public class AdkTwitterActivity extends Activity implements OnClickListener {
 
 						 ;
 					 });
+*/
+/*
+		// レイアウトインフレーターを取得
+		final android.view.LayoutInflater inflater1 = android.view.LayoutInflater.from(this);
+
+// レイアウトXMLからビューを取得
+		runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				if(mFileIOContainer==null)
+					mFileIOContainer = inflater1.inflate(R.layout.file_io_container, null);
+				// 次回のメッセージを作る
+			}
+
+			;
+		});
 */
 		Log.d(TAG,"showControls-2");
 		mInputLabel = findViewById(R.id.main_input_label);
@@ -274,6 +294,7 @@ public class AdkTwitterActivity extends Activity implements OnClickListener {
 		mTwitterLoginController = null;
 		mTweet = null;
 		m3DInputContainer=null;
+		mFileIOContainer=null;
 	}
 
 	public void showTabContents(int id) {
@@ -284,6 +305,8 @@ public class AdkTwitterActivity extends Activity implements OnClickListener {
 		mOutputContainer.setVisibility(View.GONE);
 //		mOutputLabel.setBackgroundDrawable(mNormalTabImage);
 		mInOutLabel.setBackgroundDrawable(mNormalTabImage);
+		mFileIOContainer.setVisibility(View.GONE);
+		mFioLabel.setBackgroundDrawable(mNormalTabImage);
 		mTwitterMainContainer.setVisibility(View.GONE);
 		mTwitterLabel.setBackgroundDrawable(mNormalTabImage);
 		mTweetContainer.setVisibility(View.GONE);
@@ -321,7 +344,9 @@ public class AdkTwitterActivity extends Activity implements OnClickListener {
 		}
 		else
 		if(id==R.id.main_fio_label){
-
+			Log.d(TAG,"showTabContents -main_fil_label id="+id);
+			mFileIOContainer.setVisibility(View.VISIBLE);
+			mFioLabel.setBackgroundDrawable(mFocusedTabImage);
 		}
 		else
 		if(id==R.id.main_twitter_label)

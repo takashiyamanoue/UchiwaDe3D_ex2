@@ -115,6 +115,8 @@
 			android:layout_width="match_parent" android:layout_height="wrap_content" />
 		<include layout="@layout/outputcontainer" android:id="@+id/outputContainer"
 			android:layout_width="match_parent" android:layout_height="wrap_content" />
+		<include layout="@layout/file_io_container" android:id="@+id/file_io_container"
+			android:layout_width="match_parent" android:layout_height="wrap_content" />
 		<include layout="@layout/three_dimension_input" android:id="@+id/three_dimension_input"
 			android:layout_width="match_parent" android:layout_height="wrap_content" />
 		<include layout="@layout/twitter_main" android:id="@+id/twitter_main"

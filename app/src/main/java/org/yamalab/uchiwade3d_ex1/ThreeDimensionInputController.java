@@ -11,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import java.lang.StringBuffer;
+
 public class ThreeDimensionInputController extends AccessoryController
         implements OnClickListener,
                 android.widget.SeekBar.OnSeekBarChangeListener
@@ -22,6 +24,7 @@ public class ThreeDimensionInputController extends AccessoryController
     private TextViewWithColor inputSliceImage[][];
     private TextViewWithColor presetColors[];
     int tDImage[][][];
+    int maxDepth=8;
 
     private int[][] mBitMap_1;
     private int[][] mBitMap_2;
@@ -58,7 +61,7 @@ public class ThreeDimensionInputController extends AccessoryController
     public void init(){
 
         if(tDImage!=null) return;
-        tDImage=new int[16][16][16];
+        tDImage=new int[16][16][maxDepth];
 
         mBitMap_1=new int[16][16];
         mBitMap_2=new int[16][16];
@@ -400,6 +403,7 @@ public class ThreeDimensionInputController extends AccessoryController
         mUpArrowView_1.setOnClickListener(this);
         mUpArrowView_2.setOnClickListener(this);
 
+        init_c2i();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -434,8 +438,8 @@ public class ThreeDimensionInputController extends AccessoryController
                 imageDepth=0;
             }
             else
-            if(imageDepth>=15){
-                imageDepth=14;
+            if(imageDepth>=maxDepth){
+                imageDepth=maxDepth-1;
             }
             else {
                 imageDepth--;
@@ -460,8 +464,8 @@ public class ThreeDimensionInputController extends AccessoryController
                 imageDepth=1;
             }
             else
-            if(imageDepth>=15){
-                imageDepth=15;
+            if(imageDepth>=maxDepth-1){
+                imageDepth=maxDepth-1;
             }
             else {
                 imageDepth++;
@@ -619,6 +623,97 @@ public class ThreeDimensionInputController extends AccessoryController
             int nc=(cx & 0x00ffff00) | (i & 0x000000ff)|0xff000000;
             mColorIndicator.setColor(nc);
         }
+    }
+
+    public void updateBitmapImage(String x){
+        if(x.equals("")) return;
+        StringBuffer wb=new StringBuffer(x);
+        int p=0;
+        for(int i=0;i<16;i++){
+            for(int j=0;j<16;j++){
+                for(int k=0;k<maxDepth;k++){
+                    try {
+                        String w2 = wb.substring(p, p + 4);
+                        int cc = string2Color(w2);
+                        tDImage[i][j][k] = cc;
+                        p += 4;
+                    }
+                    catch(Exception e){
+                        Log.d(TAG,"updateBitmapImage error:"+e);
+                        return;
+                    }
+                }
+            }
+        }
+        imageDepth=0;
+        setSliceImage(imageDepth);
+    }
+    public String getBitImageString(){
+        StringBuffer rtn=new StringBuffer("");
+        for(int i=0;i<16;i++){
+            for(int j=0;j<16;j++){
+                for(int k=0;k<maxDepth;k++){
+                    int c=tDImage[i][j][k];
+                    String sx=color2String(c);
+                    rtn.append(sx);
+                }
+            }
+        }
+
+        return rtn.toString();
+    }
+
+    char [] i2c = new char[]{
+        ' ','-','+','/','=','#','!','$',
+        '0','1','2','3','4','5','6','7',
+        '8','9','A','B','C','D','E','F',
+        'G','H','I','J','K','L','M','N',
+        '0','P','Q','R','S','T','U','V',
+        'W','X','Y','Z','a','b','c','d',
+        'e','f','g','h','i','j','k','l',
+        'm','n','o','p','q','r','s','t'
+    };
+
+    int [] c2i = new int[128];
+
+    void init_c2i(){
+        for(int i=0;i<64;i++){
+            char x=i2c[i];
+            c2i[(int)x]=i;
+        }
+    }
+
+    String color2String(int x){
+        int w1=x & 0x00003f;
+        char cw1=i2c[w1];
+        x=x>>6;
+        w1=x & 0x00003f;
+        char cw2=i2c[w1];
+        x=x>>6;
+        w1=x & 0x00003f;
+        char cw3=i2c[w1];
+        x=x>>6;
+        w1=x & 0x00003f;
+        char cw4=i2c[w1];
+        String rtn=""+cw4+cw3+cw2+cw1;
+        return rtn;
+    }
+    int string2Color(String x){
+        int rtn=0;
+        int ix=x.charAt(0);
+        int wx=c2i[ix];
+        rtn=(rtn<<6)|(wx & 0x003f);
+        ix=x.charAt(1);
+        wx=c2i[ix];
+        rtn=(rtn<<6)|(wx & 0x003f);
+        ix=x.charAt(2);
+        wx=c2i[ix];
+        rtn=(rtn<<6)|(wx & 0x003f);
+        ix=x.charAt(3);
+        wx=c2i[ix];
+        rtn=(rtn<<6)|(wx & 0x003f);
+        rtn=rtn|0xff000000;
+        return rtn;
     }
 
     @Override

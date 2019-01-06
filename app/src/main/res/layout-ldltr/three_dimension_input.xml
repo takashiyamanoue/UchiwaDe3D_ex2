@@ -18,7 +18,7 @@
 
     <EditText
         android:id="@+id/depthIndicator"
-        android:layout_width="60dp"
+        android:layout_width="50dp"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="number"
@@ -27,7 +27,7 @@
 
     <Button
         android:id="@+id/clearButton"
-        android:layout_width="40dp"
+        android:layout_width="35dp"
         android:layout_height="40dp"
         android:background="#ffffffff"
         app:layout_constraintLeft_toLeftOf="@+id/color_indicator"
@@ -36,14 +36,14 @@
 
     <Button
         android:id="@+id/set_button"
-        android:layout_width="60dp"
+        android:layout_width="50dp"
         android:layout_height="wrap_content"
         android:text="@string/set"
         app:layout_constraintLeft_toRightOf="@+id/depthIndicator" />
 
     <Button
         android:id="@+id/up_button"
-        android:layout_width="60dp"
+        android:layout_width="50dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:text="@string/Up"
@@ -62,7 +62,7 @@
 
     <Button
         android:id="@+id/three_d_view_button"
-        android:layout_width="80dp"
+        android:layout_width="70dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:text="3DView"
