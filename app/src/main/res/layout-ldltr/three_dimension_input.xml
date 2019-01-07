@@ -58,22 +58,32 @@
         android:text="@string/Down"
         app:layout_constraintLeft_toRightOf="@+id/up_button"
         app:layout_constraintTop_toTopOf="parent" />
+    <Button
+        android:id="@+id/send_button"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@string/send"
+        app:layout_constraintLeft_toRightOf="@+id/down_button"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <Button
         android:id="@+id/three_d_view_button"
-        android:layout_width="70dp"
+        android:layout_width="35dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="3DView"
-        app:layout_constraintLeft_toRightOf="@+id/down_button" />
+        android:text="3D"
+        app:layout_constraintLeft_toLeftOf="@+id/color_indicator"
+        app:layout_constraintTop_toBottomOf="@+id/clearButton"
+        />
     <Button
         android:id="@+id/return_to_main"
         android:layout_width="50dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:text="Ret"
-        app:layout_constraintLeft_toRightOf="@+id/three_d_view_button" />
+        app:layout_constraintLeft_toRightOf="@+id/send_button" />
 
     <TextView
         android:id="@+id/spacer"

@@ -11,20 +11,20 @@
 // Scrolls 'Howdy' across the matrix in a portrait (vertical) orientation.
 
 #include <Adafruit_GFX.h>
-#include <Adafruit_NeoMatrix.h>
-#include <Adafruit_NeoPixel.h>
+#include <Adafruit_DotStarMatrix.h>
+#include <Adafruit_DotStar.h>
 #ifndef PSTR
  #define PSTR // Make Arduino Due happy
 #endif
 
 //#include <stdio.h>
 
-#define VWMax 96
-#define VHMax 16
-#define RWMax 32
+#define RWMax 16
 #define RHMax 16
+#define Depth 7
 
-#define PIN 6
+#define DATAPIN  4
+#define CLOCKPIN 5
 
 // MATRIX DECLARATION:
 // Parameter 1 = width of NeoPixel matrix
@@ -46,25 +46,37 @@
 //   NEO_RGB     Pixels are wired for RGB bitstream (v1 FLORA pixels, not v2)
 
 
-// Example for NeoPixel Shield.  In this application we'd like to use it
-// as a 5x8 tall matrix, with the USB port positioned at the top of the
-// Arduino.  When held that way, the first pixel is at the top right, and
-// lines are arranged in columns, progressive order.  The shield uses
-// 800 KHz (v2) pixels that expect GRB color data.
-/* */
-Adafruit_NeoMatrix matrix = Adafruit_NeoMatrix(32, 16, PIN,
-  NEO_MATRIX_TOP     + NEO_MATRIX_LEFT +
-  NEO_MATRIX_COLUMNS + NEO_MATRIX_ZIGZAG,
-  NEO_GRB            + NEO_KHZ800);
+// MATRIX DECLARATION:
+// Parameter 1 = width of DotStar matrix
+// Parameter 2 = height of matrix
+// Parameter 3 = pin number (most are valid)
+// Parameter 4 = matrix layout flags, add together as needed:
+//   DS_MATRIX_TOP, DS_MATRIX_BOTTOM, DS_MATRIX_LEFT, DS_MATRIX_RIGHT:
+//     Position of the FIRST LED in the matrix; pick two, e.g.
+//     DS_MATRIX_TOP + DS_MATRIX_LEFT for the top-left corner.
+//   DS_MATRIX_ROWS, DS_MATRIX_COLUMNS: LEDs are arranged in horizontal
+//     rows or in vertical columns, respectively; pick one or the other.
+//   DS_MATRIX_PROGRESSIVE, DS_MATRIX_ZIGZAG: all rows/columns proceed
+//     in the same order, or alternate lines reverse direction; pick one.
+//   See example below for these values in action.
+// Parameter 5 = pixel type:
+//   DOTSTAR_BRG  Pixels are wired for BRG bitstream (most DotStar items)
+//   DOTSTAR_GBR  Pixels are wired for GBR bitstream (some older DotStars)
 
+Adafruit_DotStarMatrix matrix = Adafruit_DotStarMatrix(
+  16, 16, DATAPIN, CLOCKPIN,
+  DS_MATRIX_TOP     + DS_MATRIX_RIGHT +
+  DS_MATRIX_ROWS + DS_MATRIX_ZIGZAG,
+  DOTSTAR_BRG);
+  
+/*
 const uint16_t colors[] = {
   matrix.Color(255, 0, 0), matrix.Color(0, 255, 0), matrix.Color(0, 0, 255) };
-  
+*/  
 uint16_t backGround;
-uint16_t virtualGraphicsArea[VWMax][VHMax];
-uint16_t realGraphicsArea[RWMax][RHMax];
+uint16_t bmp3D[RWMax][RHMax][Depth];
 
-
+int digitalOutMax=13;
 /*
 
    Android
@@ -129,125 +141,50 @@ v              v
 
 */
 
-void clearVirtualGraphicsArea(){
-  int i,j;
+void initialBmp3D(){
+  int i,j,k;
 //  printf("start clearVirtualGraphicsArea\n");
-    for( i=0;i<VWMax;i++){
-      for( j=0;j<VHMax;j++){
-          virtualGraphicsArea[i][j]=backGround;
+    for( i=0;i<RWMax;i++){
+      for( j=0;j<RHMax;j++){
+        for( k=0; k<Depth; k++){
+            bmp3D[i][j][k]=backGround;
+        }
       }
     }
 //  printf("end clearVirtualGraphicsArea\n");
 }
-void clearRealGraphicsArea(){
-  int i,j;
-//  printf("start clearRealGraphicsArea\n");
-    for( i=0;i<RWMax;i++){
-      for( j=0;j<RHMax;j++){
-          realGraphicsArea[i][j]=backGround;
-      }
+
+byte i2c[64] = {
+        ' ','-','+','/','=','#','!','$',
+        '0','1','2','3','4','5','6','7',
+        '8','9','A','B','C','D','E','F',
+        'G','H','I','J','K','L','M','N',
+        '0','P','Q','R','S','T','U','V',
+        'W','X','Y','Z','a','b','c','d',
+        'e','f','g','h','i','j','k','l',
+        'm','n','o','p','q','r','s','t'
+};
+
+int c2i[128];
+
+void init_c2i(){
+    for(int i=0;i<64;i++){
+          char x=i2c[i];
+          c2i[(int)x]=i;
     }
-//  printf("end clearRealGraphicsArea\n");
-}
-/* */
-/* */
-void copyVirtualPart2Real(int x){
-  
-  int i,j,k;
-//  printf("start copyVirtualPart2Real\n");
-  for( i=0;i<RWMax;i++){
-     k=x+i;
-     if(k>=VWMax){
-         k=(x+i)%VWMax;
-     }
-     for( j=0;j<RHMax;j++){
-         realGraphicsArea[i][j]=virtualGraphicsArea[k][j];
-     }
-  }
 }
 
-void initialVirtualGraphicsArea(){
-     int i;
-    clearVirtualGraphicsArea();
-    for(int c=0;c<10;c++){
-        for( i=0;i<RHMax;i++){
-           int w=i+c*16;
-           if(w<VWMax){
-               virtualGraphicsArea[i+c*16][i]=matrix.Color((255-c*16),c*16,c*16);
-           }
-        }
-    }
- 
+uint16_t rgb2c(uint16_t r, uint16_t g, uint16_t b){
+  uint16_t rtn=matrix.Color(r<<3,g<<3,b<<3);
+  return rtn;
 }
 
-void putFontAt(byte f[], int p, uint16_t color){ // font width=8
-//   int oneFontSize=8;
-//   int w=(oneFontSize+7)/8;
-//   Serial.print("pos=");
-//   Serial.print(x);
-//   Serial.print("\n\r");
-//   if(lp>=vfmax) lp=0;
-   if(p>=VWMax) return;
-   backGround=matrix.Color(0,0,0);   
-   for(int i=0;i<VHMax;i++){
-	int l=f[i];
-	int mask=0x0080;
-	for(int k=0;k<8;k++){
-	        if((mask & l)!=0){
-		    virtualGraphicsArea[k+p*8][i]=color;
-//                    Serial.print("*");
-                }
-		else {
-		    virtualGraphicsArea[k+p*8][i]=backGround;
-//                    Serial.print(" ");
-                }
-		mask=mask>>1;
-	}
-//	Serial.print("\n\r");
-   }
-//   lp++; 
+uint16_t irgb2c(uint16_t i){
+   uint16_t r=(i & 0x7c00)>>11;
+   uint16_t g=(i & 0x03e0)>>5;
+   uint16_t b=(i & 0x001f);
+   return rgb2c(r,g,b);
 }
-/* */
-/*
-data format
-
-pin
-A0-A7 ... analog input
-
-4-7 ... digital input
-8-11 ... digital/analog(pwm) output
-
-receive 
-[
-  byte cmd[256]; 
-]
-
-
-send
-[
-  4 (=data_length(byte)),
-  'a' 
-  port,
-  data(high),
-  data(low)
-]
-or
-[
-  4 (=data_length(byte)),
-  'd'
-  data  (pin 0-7)
-  data  (0x00)
-  data  (0x00)
-]
-
-*/
-#define analogInMax 8
-#define digitalInMax 6
-#define digitalOutMax 14
-int analogIns[analogInMax];
-int digitalIns[digitalInMax];
-int digitalOuts[digitalOutMax];
-int digitalVal;
 
 AndroidAccessory acc("Google, Inc.",
 		     "uchiwaDe3D_ex1",
@@ -259,212 +196,108 @@ void setup();
 void loop();
 
 int realX;
-int lp; // last received font position on the virtualGraphicsArea
-int dp; // displayed font position on the virtualGraphicsArea
-int vfmax; // virtual font area max ... = VWMax/16;
-int cRed=255; // color-rgb-r
-int cGreen=0; // color-rgb-g
-int cBlue=0; // color-rgb-b 
-char colorKind='r'; //color kind d:direct, r:rainbow
+int iter;
+int dir; // last received font position on the virtualGraphicsArea
+int dp; // current bitmap depth 
 void setup()
 {
+  init_c2i();
    Serial.begin(57600);
    Serial.print("\r\nStart\n\r");
-   for(int i=0;i<digitalInMax;i++) digitalIns[i]=i;
-   for(int i=0;i<digitalOutMax;i++) digitalOuts[i]=i;
-
-   for(int i=0;i<digitalInMax;i++)
-      pinMode(digitalIns[i],INPUT);
-   for(int i=digitalInMax+1;i<digitalOutMax;i++)
-      pinMode(digitalOuts[i],OUTPUT);
-//   pinMode(ledPin, OUTPUT);
-//   pinMode(b3Pin, INPUT);
-   analogIns[0]=A0;
-   analogIns[1]=A1;
-   analogIns[2]=A2;
-   analogIns[3]=A3;
-   analogIns[4]=A4;
-   analogIns[5]=A5;
-   analogIns[6]=A6;
-   analogIns[7]=A7;
    delay(5); // add 2012 12/9
    Serial.print("acc.powerOn Start\n\r");
    acc.powerOn();
    Serial.print("acc.powerOn\n\r");
-  matrix.begin();
-  matrix.setBrightness(40); 
-  backGround=matrix.Color(0,0,0); 
-  initialVirtualGraphicsArea();
+   matrix.begin();
+   matrix.setBrightness(40); 
+   backGround=matrix.Color(0,0,0); 
+   initialBmp3D();
   /* */
   Serial.print("setup end\n");
   realX=0;
-  lp=0;
+  dir=0;
   dp=0;
-  vfmax=VWMax/16;
 }
 
+
 void readAcc(){
-  byte inMsg[64];
+  byte inMsg[1024];
 //     Serial.print("acc is connected\n"); //**
      int len = acc.read(inMsg, sizeof(inMsg), 1);
-     int i;
+     int i,j;
      byte b;
      if(len<=0){
        return;
      }
 //     Serial.print("inMsg[0]="); Serial.print(inMsg[0]); Serial.print("\n\r"); //**
      if(inMsg[0]=='a'){
-         if(inMsg[1]<digitalOutMax)
-            analogWrite(digitalOuts[inMsg[1]], inMsg[2]);
      }
      else
      if(inMsg[0]=='d'){
-         if(digitalInMax-1<inMsg[1] && inMsg[1]<digitalOutMax){
-             if(inMsg[2]==1)
-                digitalWrite(digitalOuts[inMsg[1]], HIGH);
-             else
-                digitalWrite(digitalOuts[inMsg[1]], LOW);            
-         }
      }
        /* */
      else
-     if(inMsg[0]=='f'){
-         int fontKind=inMsg[1];
-         byte font[16];
-         if(fontKind==2){ // 16x16 font.
-            for(int i=0;i<16;i++){
-              font[i]=inMsg[i*2+2];
-            }
-//          Serial.print("x="); Serial.print(realX); Serial.print("\n\r"); //**
-//          Serial.print("lp="); Serial.print(lp); Serial.print("\n\r"); //**
-//          Serial.print("dp="); Serial.print(dp); Serial.print("\n\r");  //**
-            int fcolor=lp%6;
-            if(colorKind=='r')
-               putFontAt(font,lp, matrix.Color((255-fcolor*16),fcolor*16,fcolor*16));
-            else
-               putFontAt(font,lp, matrix.Color(cRed, cGreen, cBlue));
-            lp++;
-            if(lp>=(VWMax/8)) lp=0;
-            for(int i=0;i<16;i++){
-              font[i]=inMsg[i*2+3];
-            }
-//            Serial.print("x="); Serial.print(realX); Serial.print("\n\r"); //*
-//            Serial.print("lp="); Serial.print(lp); Serial.print("\n\r"); //*
-//            Serial.print("dp="); Serial.print(dp); Serial.print("\n\r"); //*
-//            int fcolor=lp%6; 
-            if(colorKind=='r')
-               putFontAt(font,lp, matrix.Color((255-fcolor*16),fcolor*16,fcolor*16));
-            else
-               putFontAt(font,lp, matrix.Color(cRed, cGreen, cBlue));
-            lp++;            
+     if(inMsg[0]=='b'){
+         byte dc=inMsg[2];
+         int k=dc-'0';
+         if(k>9) k=dc-'a'+10;
+         int p=4;
+         for(i=0;i<16;i++){
+          for(j=0;j<16;j++){
+            byte c1=inMsg[p];
+            int i1=(c2i[(int)c1]) & 0x001f;
+            byte c2=inMsg[p+1];
+            int i2=c2i[(int)c2] & 0x001f;            
+            byte c3=inMsg[p+2];
+            int i3=c2i[(int)c3] & 0x001f;           
+            p+=3;
+            bmp3D[i][j][k]=(((i1<<5)|i2)<<5)|i3;
+          }
          }
-         else
-         if(fontKind==1){ // 8x16 font
-             for(int i=0;i<16;i++){
-              font[i]=inMsg[i+2];
-            }
-  //        Serial.print("x="); Serial.print(realX); Serial.print("\n\r");
-//          Serial.print("lp="); Serial.print(lp); Serial.print("\n\r");
-//          Serial.print("dp="); Serial.print(dp); Serial.print("\n\r"); 
-            int fcolor=lp%6;
-            if(colorKind=='r')
-               putFontAt(font,lp, matrix.Color((255-fcolor*16),fcolor*16,fcolor*16));
-            else
-               putFontAt(font,lp, matrix.Color(cRed, cGreen, cBlue));
-            lp++;          
-         }
-         if(lp>=(VWMax/8)) lp=0;
      }
      else
      if(inMsg[0]=='c'){ // color inMsg['c','r'|'d',r,g,b]
                           // r: rainbow, d: direct r-g-b
                           // r,g,b... red, green, blue
-           colorKind=inMsg[1];
-           cRed=inMsg[2];
-           cGreen=inMsg[3];
-           cBlue=inMsg[4];
-//           Serial.print("color-"); Serial.print(colorKind);
-//           Serial.print(" red="); Serial.print(cRed);
-//           Serial.print(" green="); Serial.print(cGreen);
-//           Serial.print(" blue="); Serial.print(cBlue); Serial.print("¥n¥r");
      }
       /* */  
-}
-void writeAcc(){
-  byte outMsg[4];
-     digitalVal=0;
-     for(int i=0;i<digitalInMax;i++){
-       int b=0;
-       if(digitalRead(digitalIns[i])==HIGH)
-          b=1;
-       digitalVal=digitalVal<<1 | b;
-     }
-     outMsg[0]='d';
-     outMsg[1]=digitalVal & 0xff;
-     outMsg[2]=0;
-     outMsg[3]=0;
-     acc.write(outMsg,4);
-     /*
-     int sensorValue;
-     for(int i=0;i<analogInMax;i++){
-          sensorValue = analogRead(analogIns[i]);
-          outMsg[0]='a';
-          outMsg[1]=i;
-          outMsg[2]=(sensorValue>>8) & 0xff;
-          outMsg[3]=sensorValue & 0xff;
-          acc.write(outMsg,4);
-     }
-     */
-   if(realX%8==0){
-     if(lp==dp-1){
-//       outMsg[0]='f';
-//       outMsg[1]='n';
-//       outMsg[2]=0;
-//       outMsg[3]=0;
-//       acc.write(outMsg,4);
-     }
-     else
-     if(lp==dp-2){
-     }
-     else{
-       outMsg[0]='f';
-       outMsg[1]='r';
-       outMsg[2]=0;
-       outMsg[3]=0;
-       acc.write(outMsg,4);     
-     }
-   }  
 }
 
 void loop()
 {
-  byte inMsg[64];
   byte outMsg[4];
-  if(realX%4==0){
+  if(iter>=16){
     if (acc.isConnected()) {
       readAcc();
-      writeAcc();
-    }
+     }
+     iter=0;
+     dp=0;
+  }
+  if(dp<=0){
+    dir=0;
+    dp=0;
+  }
+  if(dp>=6){
+    dir=1;
+    dp=6;
   }
 //  Serial.print("neo matrix\n\r");   
   /* */
   matrix.fillScreen(0);
   
-  copyVirtualPart2Real(realX);
   for(int i=0;i<RWMax;i++){
      for(int j=0;j<RHMax;j++){
-       uint16_t c=realGraphicsArea[i][j];
+       uint16_t cx=bmp3D[i][j][dp];
 //       printf("%d\n",c);
-       matrix.drawPixel(i,j,c);
+       matrix.drawPixel(i,j,irgb2c(cx));
      }
   }
 
-  realX++;
-  if(realX>=VWMax) realX=0;
-  dp=realX/8;
-    
   matrix.show();   
   /* */   
-   delay(20);
+   delay(5);
+
+   if(dir==0) dp++;
+   if(dir==1) dp--;
 }
 

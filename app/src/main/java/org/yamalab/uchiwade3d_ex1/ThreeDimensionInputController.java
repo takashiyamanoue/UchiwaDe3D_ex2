@@ -35,6 +35,7 @@ public class ThreeDimensionInputController extends AccessoryController
     private Button mDepthSetButton;
     private Button mUpButton;
     private Button mDownButton;
+    private Button mSendButton;
     private TextViewWithColor mColorIndicator;
     private ImageView mDownArrowView_1;
     private ImageView mUpArrowView_1;
@@ -371,6 +372,7 @@ public class ThreeDimensionInputController extends AccessoryController
         mDownButton=(Button)findViewById(R.id.down_button);
         mColorIndicator=new TextViewWithColor(mHostActivity,(TextView)findViewById(R.id.color_indicator),0);
         mClearButton=(Button)findViewById(R.id.clearButton);
+        mSendButton=(Button)findViewById(R.id.send_button);
 
         mDepthField.setOnClickListener(this);
         mReturnButton.setOnClickListener(this);
@@ -379,6 +381,7 @@ public class ThreeDimensionInputController extends AccessoryController
         mDownButton.setOnClickListener(this);
         (mColorIndicator.getTextView()).setOnClickListener(this);
         mClearButton.setOnClickListener(this);
+        mSendButton.setOnClickListener(this);
 
         EditText depthString=(EditText)findViewById(R.id.depthIndicator);
         depthString.setText("0");
@@ -502,6 +505,13 @@ public class ThreeDimensionInputController extends AccessoryController
                 }
             }
             return;
+        }
+        else
+        if(v==mSendButton){
+            for(int i=0;i<maxDepth;i++) {
+                String sending = getReducedColorOftheDepth(i);
+                mHostActivity.sendCommandToService("adk send: bitmap", sending);
+            }
         }
         else
         {
@@ -659,7 +669,22 @@ public class ThreeDimensionInputController extends AccessoryController
                 }
             }
         }
-
+        return rtn.toString();
+    }
+    public String getReducedColorOftheDepth(int k){
+        char lx='0';
+        if(k<0) return "";
+        if(k>15) return "";
+        if(k<10) lx=(char)(((int)'0')+k);
+        if(k>=10) lx=(char)(((int)'a')+(k-10));
+        StringBuffer rtn=new StringBuffer("b-"+lx+" " );
+        for(int i=0;i<16;i++){
+            for(int j=0;j<16;j++){
+                int c=tDImage[i][j][k];
+                String sx=reducedColor2String(c);
+                rtn.append(sx);
+            }
+        }
         return rtn.toString();
     }
 
@@ -698,6 +723,23 @@ public class ThreeDimensionInputController extends AccessoryController
         String rtn=""+cw4+cw3+cw2+cw1;
         return rtn;
     }
+    String reducedColor2String(int x){
+        int w1=x & 0x0000f8;
+        w1=w1>>3;
+        char cw1=i2c[w1];
+        x=x>>8;
+        w1=x & 0x0000f8;
+        w1=w1>>3;
+        char cw2=i2c[w1];
+        x=x>>8;
+        w1=x & 0x0000f8;
+        w1=w1>>3;
+        char cw3=i2c[w1];
+        String rtn=""+cw3+cw2+cw1;
+        return rtn;
+    }
+
+
     int string2Color(String x){
         int rtn=0;
         int ix=x.charAt(0);

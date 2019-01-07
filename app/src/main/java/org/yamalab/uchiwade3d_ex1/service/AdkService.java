@@ -513,6 +513,12 @@ public class AdkService extends Service
 				boolean rtn = parseAdkCommand(command);
 				return rtn;
 			}
+			if (subcmd.startsWith("send:")) {
+				String command = subcmd.substring("send:".length());
+				command = Util.skipSpace(command);
+				boolean rtn=sendBitmap2Device(m.getValue());
+				return rtn;
+			}
 		} else if (Util.parseKeyWord(cmd, "service ", rest)) {
 			String subcmd = Util.skipSpace(rest[0]);
 			if (subcmd.startsWith("#")) return true;
@@ -555,7 +561,29 @@ public class AdkService extends Service
 			this.dumpBinary(buffer);
 		}
 	}
-
+	public boolean sendBitmap2Device(String x) {
+		//Log.d(TAG, "outputDevice(" + command + "-" + target + "," + value + ")");
+		int xlength=x.length();
+		sdLog.put(TAG+" - "+"sendBitmap2Device( len="+xlength+"," + x + ")");
+		byte[] buffer = new byte[1024];
+		if(xlength>1024) return false;
+		for(int i=0;i<xlength;i++){
+			buffer[i]=(byte)(x.charAt(i));
+		}
+		if (mOutputStream != null && buffer[1] != -1) {
+			try {
+				mOutputStream.write(buffer);
+			} catch (IOException e) {
+				Log.e(TAG, "write failed", e);
+				return false;
+			}
+		}
+		else{
+			this.dumpBinary(buffer);
+			return false;
+		}
+		return true;
+	}
 	/*
 	 *  16x16 -> 8x16?
 	 */
