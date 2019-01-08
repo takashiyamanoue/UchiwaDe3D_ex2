@@ -47,7 +47,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="org.yamalab.uchiwade3d_ex1.UsbAccessoryActivity"
+            android:name="UsbAccessoryActivity"
             android:label="DemoKit"
             android:launchMode="singleInstance"
             android:taskAffinity="">
@@ -63,16 +63,7 @@
             android:name="org.yamalab.uchiwade3d_ex1.AdkTwitterActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"></activity>
-
         <service android:name="org.yamalab.uchiwade3d_ex1.service.AdkService" />
-
-        <activity android:name="org.yamalab.uchiwade3d_ex1.MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
     </application>
 
 </manifest>
