@@ -516,7 +516,10 @@ public class AdkService extends Service
 			if (subcmd.startsWith("send:")) {
 				String command = subcmd.substring("send:".length());
 				command = Util.skipSpace(command);
-				boolean rtn=sendBitmap2Device(m.getValue());
+				boolean rtn=false;
+				if(Util.parseKeyWord(command,"bitmap",rest)) {
+					rtn = sendBitmap2Device(m.getValue());
+				}
 				return rtn;
 			}
 		} else if (Util.parseKeyWord(cmd, "service ", rest)) {
@@ -564,6 +567,29 @@ public class AdkService extends Service
 	public boolean sendBitmap2Device(String x) {
 		//Log.d(TAG, "outputDevice(" + command + "-" + target + "," + value + ")");
 		int xlength=x.length();
+		if(xlength<=0) return false;
+		if(xlength<5){
+			if(x.startsWith("b-r")||x.startsWith("b-n")){
+				byte[] buffer = new byte[5];
+				for(int i=0;i<xlength;i++){
+					buffer[i]=(byte)(x.charAt(i));
+				}
+				if (mOutputStream != null && buffer[1] != -1) {
+					try {
+						mOutputStream.write(buffer);
+					} catch (IOException e) {
+						Log.e(TAG, "write failed", e);
+						return false;
+					}
+				}
+				else{
+					this.dumpBinary(buffer);
+					return false;
+				}
+				return true;
+			}
+			return false;
+		}
 		sdLog.put(TAG+" - "+"sendBitmap2Device( len="+xlength+"," + x + ")");
 		byte[] buffer = new byte[1024];
 		if(xlength>1024) return false;
@@ -777,7 +803,7 @@ public class AdkService extends Service
 			String param = Util.skipSpace(rest[0]);
 			if (param.equals("fontRequest")) {
 				if (fontTransmitter != null) {
-					fontTransmitter.setSendEnable(v);
+//					fontTransmitter.setSendEnable(v);
 				}
 			} else if (param.equals("locationSendingEnabled")) {
 				Toast.makeText(this, "locationSendingEnabled.-" + v, Toast.LENGTH_SHORT).show();
