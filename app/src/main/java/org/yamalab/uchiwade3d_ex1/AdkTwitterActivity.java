@@ -531,6 +531,14 @@ public class AdkTwitterActivity extends Activity implements OnClickListener {
 	        appendMessage(mval);
 			return true;
 		}
+		else
+		if(Util.parseKeyWord(x,"3de",rest)){
+			String subsubsub=Util.skipSpace(rest[0]);
+			if(m!=null) {
+				this.mThreeDimensionInputController.parseCommand(m.getValue());
+			}
+			return true;
+		}
 		return false;
 	}
 
@@ -572,6 +580,7 @@ public class AdkTwitterActivity extends Activity implements OnClickListener {
 			 	this.mOutputController.setValue(subsubsub);
 			   	return true;
 			}
+
 		   		
 		}
 		else

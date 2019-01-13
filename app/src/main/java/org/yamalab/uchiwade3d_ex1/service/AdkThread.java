@@ -194,11 +194,12 @@ public class AdkThread implements Runnable {
 				if((t % 50)==0){
 					Log.d(TAG,"run ...t="+t);
 					adkService.showLog(TAG+"-run, test, t%50");
-			    	adkService.sendCommandToTwitter("getNewTweet","option");
+//			    	adkService.sendCommandToTwitter("getNewTweet","option");
+					adkService.sendCommandToActivity("3de","request-bitmap");
 					this.test();
 				}
 				if((t%19)==0){
-					adkService.parseCommand("service set fontRequest","r");					
+//					adkService.parseCommand("service set fontRequest","r");
 				}
 				t++;
 				wait(100);
@@ -259,6 +260,12 @@ public class AdkThread implements Runnable {
 						if(buffer[i+1]=='n'){
 							adkService.parseCommand("service set fontRequest","n");
 						}
+					}
+					i += 4;
+					break;
+				case 'r': // font request/no request from arduino
+					if (len >= 4) {
+						adkService.sendCommandToActivity("3de","request-bitmap");
 					}
 					i += 4;
 					break;

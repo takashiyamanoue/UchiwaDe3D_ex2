@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 public class AdkTwitterLaunch extends Activity {
-	static final String TAG = "AdkArduinoLaunch";
+	static final String TAG = "AdkTwitterLaunch";
 
 	static Intent createIntent(Activity activity) {
 		Intent intent = new Intent(activity, AdkTwitterActivity.class);

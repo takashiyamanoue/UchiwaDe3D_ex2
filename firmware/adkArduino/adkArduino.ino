@@ -10,6 +10,7 @@
 // Adafruit_NeoMatrix example for single NeoPixel Shield.
 // Scrolls 'Howdy' across the matrix in a portrait (vertical) orientation.
 
+#include <SPI.h>
 #include <Adafruit_GFX.h>
 #include <Adafruit_DotStarMatrix.h>
 #include <Adafruit_DotStar.h>
@@ -21,29 +22,11 @@
 
 #define RWMax 16
 #define RHMax 16
-#define Depth 7
+
+#define Depth 8
 
 #define DATAPIN  4
 #define CLOCKPIN 5
-
-// MATRIX DECLARATION:
-// Parameter 1 = width of NeoPixel matrix
-// Parameter 2 = height of matrix
-// Parameter 3 = pin number (most are valid)
-// Parameter 4 = matrix layout flags, add together as needed:
-//   NEO_MATRIX_TOP, NEO_MATRIX_BOTTOM, NEO_MATRIX_LEFT, NEO_MATRIX_RIGHT:
-//     Position of the FIRST LED in the matrix; pick two, e.g.
-//     NEO_MATRIX_TOP + NEO_MATRIX_LEFT for the top-left corner.
-//   NEO_MATRIX_ROWS, NEO_MATRIX_COLUMNS: LEDs are arranged in horizontal
-//     rows or in vertical columns, respectively; pick one or the other.
-//   NEO_MATRIX_PROGRESSIVE, NEO_MATRIX_ZIGZAG: all rows/columns proceed
-//     in the same order, or alternate lines reverse direction; pick one.
-//   See example below for these values in action.
-// Parameter 5 = pixel type flags, add together as needed:
-//   NEO_KHZ800  800 KHz bitstream (most NeoPixel products w/WS2812 LEDs)
-//   NEO_KHZ400  400 KHz (classic 'v1' (not v2) FLORA pixels, WS2811 drivers)
-//   NEO_GRB     Pixels are wired for GRB bitstream (most NeoPixel products)
-//   NEO_RGB     Pixels are wired for RGB bitstream (v1 FLORA pixels, not v2)
 
 
 // MATRIX DECLARATION:
@@ -62,97 +45,17 @@
 // Parameter 5 = pixel type:
 //   DOTSTAR_BRG  Pixels are wired for BRG bitstream (most DotStar items)
 //   DOTSTAR_GBR  Pixels are wired for GBR bitstream (some older DotStars)
-
+/* */
 Adafruit_DotStarMatrix matrix = Adafruit_DotStarMatrix(
   16, 16, DATAPIN, CLOCKPIN,
   DS_MATRIX_TOP     + DS_MATRIX_RIGHT +
   DS_MATRIX_ROWS + DS_MATRIX_ZIGZAG,
   DOTSTAR_BRG);
-  
-/*
-const uint16_t colors[] = {
-  matrix.Color(255, 0, 0), matrix.Color(0, 255, 0), matrix.Color(0, 0, 255) };
-*/  
+
 uint16_t backGround;
 uint16_t bmp3D[RWMax][RHMax][Depth];
 
 int digitalOutMax=13;
-/*
-
-   Android
-   +---------------------+ tweet
-       ...
-   +---------------------+ tweet max 132 char
-     ^        |
-     |        | send font at p
-    ask       | to arduino and p++, 
-    new       | if p>= tweet.length{ 
-    font      |   if no next tweet, p=0
-    from      |   else renew current tweet by the next and p=0
-    arduino   | }
-              |
-              v
-  at the Arduino
-      if new font received,
-      put the received font at lp, lp++;
-      if(lp>=vfmax) lp=0;  
-              
-   dp (displaying position) = x/8
-  
-   initial ... x=0, lp=0, dp=0
-   
-  if lp=dp-1 {
-     ask no font
-  }
-  else{
-     ask new font
-  }
-  
- 
-                      Android ADK
-                         | 'f', [font kind (0 or 1)], f[32]
-                         v
-                      +-------+
-                      | 32byte| or 16 byte
-   dp=x/8  char       +-------+
-        |                | putFontAt ( char position)
-        |                |
-        |                | lp ... last received font position
-        v                v
-+-----------------------------------+ vfmax =VWMax/16
-|     virtual matrix                |
-|     width: 6x16= 96 dot           |
-|     height: 16 dot                |
-+-----------------------------------+
-        |      |
-        |x     |x+31
-+-------+      |     copyVirtualPart2Real, x++,
-|              |     if x>= VWMax, x=0;
-v              v
-****************   real matrix
-**************** ^
-**************** |
-   ...           16 dot
-**************** |
-**************** v
-****************
-****************
- <--32 dot->
-
-*/
-
-void initialBmp3D(){
-  int i,j,k;
-//  printf("start clearVirtualGraphicsArea\n");
-    for( i=0;i<RWMax;i++){
-      for( j=0;j<RHMax;j++){
-        for( k=0; k<Depth; k++){
-            bmp3D[i][j][k]=backGround;
-        }
-      }
-    }
-//  printf("end clearVirtualGraphicsArea\n");
-}
 
 byte i2c[64] = {
         ' ','-','+','/','=','#','!','$',
@@ -186,61 +89,144 @@ uint16_t irgb2c(uint16_t i){
    return rgb2c(r,g,b);
 }
 
+void initialBmp3D(){
+  int i,j,k;
+//  printf("start clearVirtualGraphicsArea\n");
+    for( i=0;i<RWMax;i++){
+      for( j=0;j<RHMax;j++){
+        for( k=0; k<Depth; k++){
+            bmp3D[i][j][k]=backGround;
+        }
+      }
+    }
+    for(k=0;i<Depth;k++){
+      bmp3D[0][0][k]=rgb2c(255,255,0);
+      bmp3D[RWMax-1][0][k]=rgb2c(255,255,0);
+      bmp3D[RWMax-1][RHMax-1][k]=rgb2c(255,255,0);
+      bmp3D[0][RHMax-1][k]=rgb2c(255,255,0);
+    }
+    for(i=0;i<RWMax;i++){
+      bmp3D[i][0][0]=rgb2c(255,255,0);
+      bmp3D[i][RHMax-1][0]=rgb2c(255,255,0);
+      bmp3D[i][0][Depth-1]=rgb2c(255,255,0);
+      bmp3D[i][RHMax-1][Depth-1]=rgb2c(255,255,0);
+    }
+    for(j=0;j<RHMax;j++){
+      bmp3D[0][j][0]=rgb2c(255,255,0);
+      bmp3D[RWMax-1][j][0]=rgb2c(255,255,0);
+      bmp3D[0][j][Depth-1]=rgb2c(255,255,0);
+      bmp3D[RWMax-1][j][Depth-1]=rgb2c(255,255,0);
+    }    
+//  printf("end clearVirtualGraphicsArea\n");
+}
+
+
+
+/* */
 AndroidAccessory acc("Google, Inc.",
-		     "uchiwaDe3D_ex1",
-		     "Arduino Board for uchiwaDe3D_ex1",
-		     "1.0",
-		     "http://www.android.com",
-		     "0000000012345000");
+         "uchiwaDe3Dex1",
+         "Arduino Board for uchiwaDe3D_ex1",
+         "1.0",
+         "http://www.android.com",
+         "0000000012346000");
+/* */
+/*
+AndroidAccessory acc("Google, Inc.",
+         "Twitter2NeoMatrixEx5",
+         "Arduino Board for twitter2neomatrixex5",
+         "1.0",
+         "http://www.android.com",
+         "0000000012345000");
+         */
 void setup();
 void loop();
 
-int realX;
 int iter;
 int dir; // last received font position on the virtualGraphicsArea
 int dp; // current bitmap depth 
+const int speaker = 8;
+
+#define analogInMax 8
+#define digitalInMax 6
+#define digitalOutMax 14
+int analogIns[analogInMax];
+int digitalIns[digitalInMax];
+int digitalOuts[digitalOutMax];
+int digitalVal;
+
+
 void setup()
 {
-  init_c2i();
+   #if defined(__AVR_ATtiny85__) && (F_CPU == 16000000L)
+    clock_prescale_set(clock_div_1); // Enable 16 MHz on Trinket
+   #endif
+
    Serial.begin(57600);
    Serial.print("\r\nStart\n\r");
+   init_c2i();
+   for(int i=0;i<digitalInMax;i++) digitalIns[i]=i;
+   for(int i=0;i<digitalOutMax;i++) digitalOuts[i]=i;
+
+   for(int i=0;i<digitalInMax;i++)
+      pinMode(digitalIns[i],INPUT);
+   for(int i=digitalInMax+1;i<digitalOutMax;i++)
+      pinMode(digitalOuts[i],OUTPUT);
+   
+   analogIns[0]=A0;
+   analogIns[1]=A1;
+   analogIns[2]=A2;
+   analogIns[3]=A3;
+   analogIns[4]=A4;
+   analogIns[5]=A5;
+   analogIns[6]=A6;
+   analogIns[7]=A7;
+  
+   Serial.print("init_c2i()\n\r");
    delay(5); // add 2012 12/9
    Serial.print("acc.powerOn Start\n\r");
    acc.powerOn();
    Serial.print("acc.powerOn\n\r");
+
+   // スピーカーをつないだピンを出力に設定する
+   pinMode(speaker, OUTPUT);
+
+   
    matrix.begin();
    matrix.setBrightness(40); 
    backGround=matrix.Color(0,0,0); 
    initialBmp3D();
   /* */
   Serial.print("setup end\n");
-  realX=0;
   dir=0;
   dp=0;
+  iter=0;
 }
-
+char readKind(){
+  byte inMsg[5];
+  Serial.println("readKind()");
+  int len = acc.read(inMsg, sizeof(inMsg),1);
+  Serial.print("len=");Serial.println(len);
+  if(len<0) return ' ';
+  if(inMsg[0]=='b'){
+    if(inMsg[2]=='r') return 'r';
+    if(inMsg[2]=='n') return 'n';
+  }
+  return ' ';
+}
 
 void readAcc(){
   byte inMsg[1024];
-//     Serial.print("acc is connected\n"); //**
+     Serial.println("readAcc()"); //**
      int len = acc.read(inMsg, sizeof(inMsg), 1);
+     Serial.print("len=");Serial.println(len);
+     if(len<0) return;     
      int i,j;
      byte b;
-     if(len<=0){
-       return;
-     }
-//     Serial.print("inMsg[0]="); Serial.print(inMsg[0]); Serial.print("\n\r"); //**
-     if(inMsg[0]=='a'){
-     }
-     else
-     if(inMsg[0]=='d'){
-     }
-       /* */
-     else
      if(inMsg[0]=='b'){
          byte dc=inMsg[2];
          int k=dc-'0';
          if(k>9) k=dc-'a'+10;
+         if(k>=Depth) k=Depth;
          int p=4;
          for(i=0;i<16;i++){
           for(j=0;j<16;j++){
@@ -260,26 +246,103 @@ void readAcc(){
                           // r: rainbow, d: direct r-g-b
                           // r,g,b... red, green, blue
      }
-      /* */  
+}
+void writeAcc(){
+  byte outMsg[4];
+     digitalVal=0;
+     for(int i=0;i<digitalInMax;i++){
+       int b=0;
+       if(digitalRead(digitalIns[i])==HIGH)
+          b=1;
+       digitalVal=digitalVal<<1 | b;
+     }
+     Serial.print("digitalVal="); Serial.println(digitalVal);
+     outMsg[0]='d';
+     outMsg[1]=digitalVal & 0xff;
+     outMsg[2]=0;
+     outMsg[3]=0;
+     acc.write(outMsg,4);
+     Serial.println("end_writeAcc()");
 }
 
+void sendRequest(){
+  Serial.println("sendRequest()");
+     byte outMsg[4];
+     digitalVal=0;
+     outMsg[0]='r';
+     outMsg[1]=0;
+     outMsg[2]=0;
+     outMsg[3]=0;
+     acc.write(outMsg,4);
+     Serial.println("end_sendRequest");
+  
+}
+
+void hiSound()
+{
+  int i = 0;
+  while(i<50) {
+      digitalWrite(speaker, HIGH);
+      delay(1);
+      digitalWrite(speaker, LOW);
+      delay(1);
+      i = i + 1;
+  }
+}
+
+// 低い音を出す関数
+void lowSound()
+{
+  int i = 0;
+  while(i<50) {
+      digitalWrite(speaker, HIGH);
+      delay(10);
+      digitalWrite(speaker, LOW);
+      delay(10);
+      i = i + 10;
+  }
+}    
+
+#define VWMax 16
 void loop()
 {
-  byte outMsg[4];
-  if(iter>=16){
-    if (acc.isConnected()) {
-      readAcc();
+  /* */
+  if(iter%Depth==0){
+    if(acc.isConnected()){
+//          Serial.print("iter=");Serial.print(iter);
+//          Serial.println(",iter%Depth==0");
+      writeAcc();
+      
+    }  
+  }
+ /* */
+  if(iter%(Depth*4)==0){
+//    Serial.print("iter%(Depth*16)==0\n\r");
+     if (acc.isConnected()) {
+        Serial.print("acc.isConnected()\n\r");
+        sendRequest();
+        if(readKind()=='r'){
+           for(int i=0;i<Depth;i++){
+              readAcc();
+           }
+        }
      }
      iter=0;
-     dp=0;
   }
+  if(iter>=Depth*16)
+  {
+     iter=0;
+  }
+  
   if(dp<=0){
+    hiSound();        
     dir=0;
     dp=0;
   }
-  if(dp>=6){
+  if(dp>=Depth){
+    lowSound();        
     dir=1;
-    dp=6;
+    dp=Depth-1;
   }
 //  Serial.print("neo matrix\n\r");   
   /* */
@@ -295,9 +358,10 @@ void loop()
 
   matrix.show();   
   /* */   
-   delay(5);
+//   delay(1);
 
    if(dir==0) dp++;
    if(dir==1) dp--;
+   iter++;
 }
 

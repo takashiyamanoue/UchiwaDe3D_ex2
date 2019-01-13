@@ -27,6 +27,7 @@ public class FontTransmitter {
 		times=-1;
 	}
 	public void setSendEnable(String f){
+		/*
 		if(!(isCharArrayReady())) return;
 		if(f.equals("r")){
 			if(startsWithColorCommand()){
@@ -37,6 +38,7 @@ public class FontTransmitter {
 				service.outputFontToDevice(cf);
 			}
 		}
+		*/
 	}
     public boolean putString(String x){
     	if(x==null) return false;

@@ -95,7 +95,7 @@
 
     <TextView
         android:id="@+id/spacer2"
-        android:layout_width="20dp"
+        android:layout_width="0dp"
         android:layout_height="20dp"
         app:layout_constraintLeft_toRightOf="@+id/seekBar_red"
         app:layout_constraintTop_toTopOf="@+id/seekBar_red"
@@ -122,7 +122,7 @@
 
     <ImageView
         android:id="@+id/downArrow_1"
-        android:layout_width="40dp"
+        android:layout_width="35dp"
         android:layout_height="40dp"
         android:src="@drawable/down_arrow_icon"
         android:background="#FFFFFFFF"
@@ -132,7 +132,7 @@
 
     <ImageView
         android:id="@+id/upArrow_1"
-        android:layout_width="40dp"
+        android:layout_width="35dp"
         android:layout_height="40dp"
         android:src="@drawable/up_arrow_icon"
         app:layout_constraintLeft_toRightOf="@+id/downArrow_1"
@@ -140,7 +140,7 @@
 
     <ImageView
         android:id="@+id/downArrow_2"
-        android:layout_width="40dp"
+        android:layout_width="35dp"
         android:layout_height="40dp"
         android:src="@drawable/down_arrow_icon"
         android:background="#FFFFFFFF"
@@ -149,7 +149,7 @@
 
     <ImageView
         android:id="@+id/upArrow_2"
-        android:layout_width="40dp"
+        android:layout_width="35dp"
         android:layout_height="40dp"
         android:src="@drawable/up_arrow_icon"
         app:layout_constraintLeft_toRightOf="@+id/downArrow_2"
@@ -157,16 +157,16 @@
 
     <org.yamalab.uchiwade3d_ex1.BitmapMemoryView_1
         android:id="@+id/bitmap_memory_1"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         android:background="@drawable/border"
         app:layout_constraintLeft_toRightOf="@+id/color_indicator"
         app:layout_constraintTop_toBottomOf="@+id/downArrow_1" />
 
     <org.yamalab.uchiwade3d_ex1.BitmapMemoryView_2
         android:id="@+id/bitmap_memory_2"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         android:background="@drawable/border"
         app:layout_constraintLeft_toRightOf="@+id/bitmap_memory_1"
         app:layout_constraintTop_toBottomOf="@+id/downArrow_1"  />
@@ -174,7 +174,7 @@
     <SeekBar
         android:id="@+id/seekBar_red"
         android:layout_width="120dp"
-        android:layout_height="25dp"
+        android:layout_height="20dp"
         android:background="#ff0000"
         android:orientation="horizontal"
         app:layout_constraintLeft_toRightOf="@+id/label_Z"
@@ -183,7 +183,7 @@
     <SeekBar
         android:id="@+id/seekBar_green"
         android:layout_width="120dp"
-        android:layout_height="25dp"
+        android:layout_height="20dp"
         android:background="#00ff00"
         android:orientation="horizontal"
         app:layout_constraintLeft_toLeftOf="@+id/seekBar_red"
@@ -192,7 +192,7 @@
     <SeekBar
         android:id="@+id/seekBar_blue"
         android:layout_width="120dp"
-        android:layout_height="25dp"
+        android:layout_height="20dp"
         android:background="#0000ff"
         android:orientation="horizontal"
         app:layout_constraintLeft_toLeftOf="@+id/seekBar_red"
@@ -257,7 +257,7 @@
 
     <TextView
         android:id="@+id/spacer4"
-        android:layout_width="40dp"
+        android:layout_width="0dp"
         android:layout_height="10dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spacer3" />

@@ -11,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import org.yamalab.uchiwade3d_ex1.service.Util;
+
 import java.lang.StringBuffer;
 
 public class ThreeDimensionInputController extends AccessoryController
@@ -24,7 +26,7 @@ public class ThreeDimensionInputController extends AccessoryController
     private TextViewWithColor inputSliceImage[][];
     private TextViewWithColor presetColors[];
     int tDImage[][][];
-    int maxDepth=7;
+    int maxDepth=8;
 
     private int[][] mBitMap_1;
     private int[][] mBitMap_2;
@@ -46,6 +48,7 @@ public class ThreeDimensionInputController extends AccessoryController
     private Button mClearButton;
 
     private int imageDepth;
+    private boolean sending;
 
     ThreeDimensionInputController(AdkTwitterActivity hostActivity){
         super(hostActivity);
@@ -407,6 +410,7 @@ public class ThreeDimensionInputController extends AccessoryController
         mUpArrowView_2.setOnClickListener(this);
 
         init_c2i();
+        sending=false;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -508,10 +512,13 @@ public class ThreeDimensionInputController extends AccessoryController
         }
         else
         if(v==mSendButton){
+            sending=true;
+            /*
             for(int i=0;i<maxDepth;i++) {
                 String sending = getReducedColorOftheDepth(i);
                 mHostActivity.sendCommandToService("adk send: bitmap", sending);
             }
+            */
         }
         else
         {
@@ -671,12 +678,16 @@ public class ThreeDimensionInputController extends AccessoryController
         }
         return rtn.toString();
     }
-    public String getReducedColorOftheDepth(int k){
-        char lx='0';
-        if(k<0) return "";
-        if(k>15) return "";
+    private char oi2c(int k){
+        char lx=' ';
+        if(k<0) return lx;
+        if(k>15) return lx;
         if(k<10) lx=(char)(((int)'0')+k);
         if(k>=10) lx=(char)(((int)'a')+(k-10));
+        return lx;
+    }
+    public String getReducedColorOftheDepth(int k){
+        char lx=oi2c(k);
         StringBuffer rtn=new StringBuffer("b-"+lx+" " );
         for(int i=0;i<16;i++){
             for(int j=0;j<16;j++){
@@ -770,6 +781,23 @@ public class ThreeDimensionInputController extends AccessoryController
 
     protected void onAccesssoryAttached() {
         Log.d(TAG,"onAccessoryAttached");
+    }
+
+    public boolean parseCommand(String x){
+        String subcmd= Util.skipSpace(x);
+        String [] rest=new String[1];
+        if(Util.parseKeyWord(subcmd,"request-bitmap",rest)){
+            if(sending) {
+                mHostActivity.sendCommandToService("adk send: bitmap","b-r"+oi2c(maxDepth));
+                for (int i = 0; i < maxDepth; i++) {
+                    String sending = getReducedColorOftheDepth(i);
+                    mHostActivity.sendCommandToService("adk send: bitmap", sending);
+                }
+            }
+            mHostActivity.sendCommandToService("adk send: bitmap","b-n");
+            sending=false;
+        };
+        return true;
     }
 
 }
