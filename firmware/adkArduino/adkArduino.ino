@@ -25,8 +25,10 @@
 
 #define Depth 8
 
-#define DATAPIN  4
-#define CLOCKPIN 5
+//#define DATAPIN  4
+//#define CLOCKPIN 5
+#define DATAPIN 51 // for mega spi
+#define CLOCKPIN 52 // for mega spi
 
 
 // MATRIX DECLARATION:
@@ -47,7 +49,8 @@
 //   DOTSTAR_GBR  Pixels are wired for GBR bitstream (some older DotStars)
 /* */
 Adafruit_DotStarMatrix matrix = Adafruit_DotStarMatrix(
-  16, 16, DATAPIN, CLOCKPIN,
+//  16, 16, DATAPIN, CLOCKPIN,
+  16, 16, // for Hardware SPI
   DS_MATRIX_TOP     + DS_MATRIX_RIGHT +
   DS_MATRIX_ROWS + DS_MATRIX_ZIGZAG,
   DOTSTAR_BRG);
@@ -171,6 +174,8 @@ void setup()
       pinMode(digitalIns[i],INPUT);
    for(int i=digitalInMax+1;i<digitalOutMax;i++)
       pinMode(digitalOuts[i],OUTPUT);
+
+   pinMode(53,OUTPUT); //for mega spi
    
    analogIns[0]=A0;
    analogIns[1]=A1;
