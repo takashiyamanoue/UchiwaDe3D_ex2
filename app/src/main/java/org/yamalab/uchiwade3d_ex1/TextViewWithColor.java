@@ -24,4 +24,10 @@ public class TextViewWithColor {
     public int getColor(){
         return color;
     }
+    public void setWidth(int w){
+        textView.setWidth(w);
+    }
+    public void setHeight(int h){
+        textView.setHeight(h);
+    }
 }

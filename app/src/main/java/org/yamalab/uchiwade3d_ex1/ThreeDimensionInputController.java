@@ -3,8 +3,10 @@ package org.yamalab.uchiwade3d_ex1;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.util.Log;
+import android.view.Display;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -14,6 +16,8 @@ import android.widget.TextView;
 import org.yamalab.uchiwade3d_ex1.service.Util;
 
 import java.lang.StringBuffer;
+
+import static android.content.Context.WINDOW_SERVICE;
 
 public class ThreeDimensionInputController extends AccessoryController
         implements OnClickListener,
@@ -50,6 +54,8 @@ public class ThreeDimensionInputController extends AccessoryController
     private int imageDepth;
     private boolean sending;
 
+    private int tileSize;
+
     ThreeDimensionInputController(AdkTwitterActivity hostActivity){
         super(hostActivity);
         mHostActivity=hostActivity;
@@ -59,7 +65,11 @@ public class ThreeDimensionInputController extends AccessoryController
 //		mAdk2WikiView = (EditText) findViewById(R.id.input_adk_to_wiki_area);
 		Log.d(TAG,"3DInputController-1");
     /* */
-		Log.d(TAG,"3DInputController-8");
+        WindowManager wm = (WindowManager)(mHostActivity.getSystemService(WINDOW_SERVICE));
+        Display disp = wm.getDefaultDisplay();
+        tileSize=(disp.getHeight())/16;
+
+        Log.d(TAG,"3DInputController-8");
     }
 
     public void init(){
@@ -346,6 +356,7 @@ public class ThreeDimensionInputController extends AccessoryController
         for(int i=0;i<16;i++){
             for(int j=0;j<16;j++){
                 TextView x=(inputSliceImage[i][j]).getTextView();
+//                x.setWidth(tileSize); x.setHeight(tileSize);
 				x.setOnClickListener(this);
             }
         }

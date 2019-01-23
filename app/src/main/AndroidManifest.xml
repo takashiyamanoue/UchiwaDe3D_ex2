@@ -28,7 +28,7 @@
                 <data android:scheme="myapp" android:host="oauth"/>
             </intent-filter>
         </activity>
-        <activity android:name="UsbAccessoryActivity" android:label="DemoKit"
+        <activity android:name="UsbAccessoryActivity" android:label="UchiwaDe3D"
             android:taskAffinity="" android:launchMode="singleInstance">
             <intent-filter>
                 <action android:name="android.hardware.usb.action.USB_ACCESSORY_ATTACHED" />
