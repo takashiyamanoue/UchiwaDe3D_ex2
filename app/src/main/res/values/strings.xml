@@ -109,6 +109,7 @@
     <string name="Down">"Down"</string>
     <string name="Zcolon">"Z:"</string>
     <string name="send">"send"</string>
+    <string name="wiki_connector_label">"wiki"</string>
     <string-array name="sendingIntervalItems">
         <item>1-min</item>
         <item>5-min</item>

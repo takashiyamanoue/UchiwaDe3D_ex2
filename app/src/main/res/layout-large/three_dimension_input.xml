@@ -122,8 +122,8 @@
 
     <ImageView
         android:id="@+id/downArrow_1"
-        android:layout_width="35dp"
-        android:layout_height="40dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:src="@drawable/down_arrow_icon"
         android:background="#FFFFFFFF"
         app:layout_constraintLeft_toRightOf="@+id/color_indicator"
@@ -132,16 +132,16 @@
 
     <ImageView
         android:id="@+id/upArrow_1"
-        android:layout_width="35dp"
-        android:layout_height="40dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:src="@drawable/up_arrow_icon"
         app:layout_constraintLeft_toRightOf="@+id/downArrow_1"
         app:layout_constraintTop_toTopOf="@+id/seekBar_red"  />
 
     <ImageView
         android:id="@+id/downArrow_2"
-        android:layout_width="35dp"
-        android:layout_height="40dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:src="@drawable/down_arrow_icon"
         android:background="#FFFFFFFF"
         app:layout_constraintLeft_toRightOf="@+id/upArrow_1"
@@ -149,24 +149,24 @@
 
     <ImageView
         android:id="@+id/upArrow_2"
-        android:layout_width="35dp"
-        android:layout_height="40dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:src="@drawable/up_arrow_icon"
         app:layout_constraintLeft_toRightOf="@+id/downArrow_2"
         app:layout_constraintTop_toTopOf="@+id/seekBar_red"  />
 
     <org.yamalab.uchiwade3d_ex1.BitmapMemoryView_1
         android:id="@+id/bitmap_memory_1"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:background="@drawable/border"
         app:layout_constraintLeft_toRightOf="@+id/color_indicator"
         app:layout_constraintTop_toBottomOf="@+id/downArrow_1" />
 
     <org.yamalab.uchiwade3d_ex1.BitmapMemoryView_2
         android:id="@+id/bitmap_memory_2"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:background="@drawable/border"
         app:layout_constraintLeft_toRightOf="@+id/bitmap_memory_1"
         app:layout_constraintTop_toBottomOf="@+id/downArrow_1"  />

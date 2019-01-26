@@ -48,7 +48,7 @@ public class BitmapMemoryView extends android.view.View
             for(int j=0;j<xMax;j++){
                 paint.setColor(bitmap[i][j]);
                 // 以下の値が小さいと点が見えない可能性があります
-                canvas.drawPoint(20+j*15,20+i*15,paint);
+                canvas.drawPoint(0+j*7,0+i*7,paint);
             }
         }
         invalidate();

@@ -74,6 +74,7 @@ public class AdkTwitterActivity extends Activity implements OnClickListener {
 
 	TextView m3DInLabel;
 	TextView mFioLabel;
+	TextView mWikiLabel;
 
 	EditText mLogArea;
 	LinearLayout mInputContainer;
@@ -84,6 +85,8 @@ public class AdkTwitterActivity extends Activity implements OnClickListener {
 	LinearLayout mTweetContainer;// = findViewById(R.id.tweet);
 	LinearLayout mTwitterLoginContainer;// = (LinearLayout) findViewById(R.id.tweetlogin);
 	LinearLayout mLogContainer;// = this.<LinearLayout>findViewById(R.id.log);
+	LinearLayout mWikiContainer;
+	LinearLayout mDebugContainer;
 
 //	android.support.constraint.ConstraintLayout m3DInputContainer;
 	View m3DInputContainer;
@@ -203,6 +206,7 @@ public class AdkTwitterActivity extends Activity implements OnClickListener {
 		mFileIOController = new FileIOController(this);
 
 		mFileIOController.set3DEditor(mThreeDimensionInputController);
+		mWikiLabel =   (TextView) findViewById(R.id.main_wiki_label);
 
 		/* */
 		Log.d(TAG,"showControls-1");
@@ -212,11 +216,11 @@ public class AdkTwitterActivity extends Activity implements OnClickListener {
 		mTweetContainer = findViewById(R.id.tweet);
 		mTwitterLoginContainer = (LinearLayout) findViewById(R.id.tweetlogin);
 		mLogContainer = findViewById(R.id.log);
-		mTweetContainer = findViewById(R.id.tweet);
-		mTwitterLoginContainer = (LinearLayout) findViewById(R.id.tweetlogin);
-		mLogContainer = findViewById(R.id.log);
 		m3DInputContainer=findViewById(R.id.three_dimension_input);
 		mFileIOContainer=findViewById(R.id.file_io_container);
+		mWikiContainer = (LinearLayout) findViewById(R.id.connector_container);
+		mDebugContainer = (LinearLayout) findViewById(R.id.pukiwiki_connector_debugger);
+
 /*
 		// レイアウトインフレーターを取得
 		final android.view.LayoutInflater inflater1 = android.view.LayoutInflater.from(this);
@@ -993,6 +997,26 @@ public class AdkTwitterActivity extends Activity implements OnClickListener {
 		}
 		else{
 			
+		}
+	}
+	public void saveProperties(){
+		Log.d(TAG,"saveProperties");
+		//add "returnKey" as a key and assign it the value
+		//in the textbox...
+		if(setting!=null){
+			SharedPreferences pref =
+					getSharedPreferences("pref", MODE_WORLD_READABLE|MODE_WORLD_WRITEABLE);
+			Editor e = pref.edit();
+			Enumeration keys=setting.keys();
+			while(keys.hasMoreElements()){
+				String key=(String)(keys.nextElement());
+				String info=(String)(this.setting.getProperty(key));
+				e.putString(key, info);
+			}
+			e.commit();
+		}
+		else{
+
 		}
 	}
 	
