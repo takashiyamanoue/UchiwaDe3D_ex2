@@ -757,7 +757,7 @@ public class ThreeDimensionInputController extends AccessoryController
         w1=x & 0x0000f8;
         w1=w1>>3;
         char cw3=i2c[w1];
-        String rtn=""+cw3+cw2+cw1;
+        String rtn=""+cw2+cw3+cw1;
         return rtn;
     }
 

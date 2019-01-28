@@ -4,39 +4,25 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import java.util.StringTokenizer;
 import java.util.Vector;
 
-/* */
+/*
 import org.apache.http.HttpRequest;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.NameValuePair;
-import org.apache.http.auth.AuthScope;
-import org.apache.http.auth.Credentials;
-import org.apache.http.auth.UsernamePasswordCredentials;
-import org.apache.http.auth.params.AuthPNames;
-import org.apache.http.client.*;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.client.params.AuthPolicy;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
-/* 
-import org.apache.commons.httpclient.Credentials;
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.HttpMethod;
-import org.apache.commons.httpclient.HttpStatus;
-import org.apache.commons.httpclient.UsernamePasswordCredentials;
-import org.apache.commons.httpclient.auth.AuthScope;
-import org.apache.commons.httpclient.methods.GetMethod;
-import org.apache.commons.httpclient.methods.PostMethod;
 */
+
 import org.yamalab.uchiwade3d_ex1.Util;
 import org.yamalab.uchiwade3d_ex1.pukiwikiCommunicator.language.HtmlTokenizer;
 import org.yamalab.uchiwade3d_ex1.pukiwikiCommunicator.language.InterpreterInterface;
@@ -48,93 +34,103 @@ import android.os.Looper;
 import android.util.Log;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 
-public class PukiWikiConnectorService implements Runnable, InterpreterInterface
-{
+public class PukiWikiConnectorService implements Runnable, InterpreterInterface {
 	private static final String TAG = "PukiWikiConService";
 	private String baseUrl;
 	private String pageName;
 	private String pageCharSet;
 	private String charset;
 
-    private Properties setting;
+	private Properties setting;
 	private String messageTextArea;
 	private boolean showMessage;
 	private String urlField;
 	private boolean authInputFlag;
 	private boolean loginButtonPressed;
 	private PukiwikiJavaApplication application;
-    private String loginId;
-    private String loginPassword;
-	boolean authDialog=false;
-	boolean authDialogBack=false;
+	private String loginId;
+	private String loginPassword;
+	boolean authDialog = false;
+	boolean authDialogBack = false;
 	InterpreterInterface serviceInterface;
 
-	public PukiWikiConnectorService(PukiwikiJavaApplication service, 
-			       InterpreterInterface si) {
-		Log.d(TAG,"PukiWikiConnectorService");
-		this.application=service;
+	public PukiWikiConnectorService(PukiwikiJavaApplication service,
+									InterpreterInterface si) {
+		Log.d(TAG, "PukiWikiConnectorService");
+		this.application = service;
 		this.println("saveButtonDebugFrame");
-		charset="UTF-8";
-		this.setting=new Properties();
-		this.serviceInterface=si;
+		charset = "UTF-8";
+		this.setting = new Properties();
+		this.serviceInterface = si;
 	}
-	
+
 	private void saveButtonActionPerformed() {
 //		System.out.println("saveButton.actionPerformed, event="+evt);
 		//TODO add your code for saveButton.actionPerformed
-		Log.d(TAG,"saveButtonActionPerformed");
+		Log.d(TAG, "saveButtonActionPerformed");
 		this.editPageButtonActionPerformed();
 		this.updateButtonActionPerformed();
 	}
-	private void saveText(String x){
-		Log.d(TAG,"saveText: "+x);
+
+	private void saveText(String x) {
+		Log.d(TAG, "saveText: " + x);
 		this.editPageButtonActionPerformed();
 		this.replaceTextWith(x);
 	}
-	private void saveText(String url, String xx){
-		Log.d(TAG,"saveText: editUrl="+url+" text="+xx+".\n");
-		this.urlField=url;
-		String x=connectToURL(url);
-		if(x==null){
+
+	private void saveText(String url, String xx) {
+		Log.d(TAG, "saveText: editUrl=" + url + " text=" + xx + ".\n");
+		this.urlField = url;
+		String x = connectToURL(url);
+		if (x == null) {
 			this.application.sendCommandToActivity("activity show connector", "");
 			this.application.sendCommandToActivity("connector setMessage", "confirm url and login, pw");
 			println("connect error. when writing.");
 			return;
 		}
-		
+
 		// extract charSet from <?xml= ...?> which contains charSet;
-		String firstXmltag=getBetween(x,"<?xml","?>");
-		if(firstXmltag==null) {
+		String firstXmltag = getBetween(x, "<?xml", "?>");
+		if (firstXmltag == null) {
 			println("firstXmlTag==null");
 			return;
 		}
-		this.pageCharSet=this.getTagProperty(firstXmltag,"encoding");
-		if(this.pageCharSet==null)
-			this.pageCharSet="UTF-8";
-		this.println("pageCharSet="+this.pageCharSet);
-		x=getBetween(x,"<body>","</body>");
-		
-		String headerPart=getBetween(x,"<div id=\"header\">","</div>");
-		String pageNamePart=getBetween(headerPart,"<span class=\"small\">","</span>");
-		StringTokenizer st=new StringTokenizer(pageNamePart,"?");
-		this.baseUrl=st.nextToken();
-		this.pageName=st.nextToken();
+		this.pageCharSet = this.getTagProperty(firstXmltag, "encoding");
+		if (this.pageCharSet == null)
+			this.pageCharSet = "UTF-8";
+		this.println("pageCharSet=" + this.pageCharSet);
+		x = getBetween(x, "<body>", "</body>");
+
+		String headerPart = getBetween(x, "<div id=\"header\">", "</div>");
+		String pageNamePart = getBetween(headerPart, "<span class=\"small\">", "</span>");
+		StringTokenizer st = new StringTokenizer(pageNamePart, "?");
+		this.baseUrl = st.nextToken();
+		this.pageName = st.nextToken();
 		this.editPageButtonActionPerformed();
 		this.replaceTextWith(xx);
 	}
-	
-	private String getUrlWithoutParameters(String url){
-		if(url==null) return null;
-		int i=url.indexOf("?");
-		if(i<0) return url;
-		String rtn=url.substring(0,i);
+
+	private String getUrlWithoutParameters(String url) {
+		if (url == null) return null;
+		int i = url.indexOf("?");
+		if (i < 0) return url;
+		String rtn = url.substring(0, i);
 		return rtn;
 	}
-	
-//	HttpClient client=null;
-	DefaultHttpClient client=null;
-	
+
+	private String is2String(InputStream is) throws IOException {
+		BufferedReader reader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
+		StringBuffer sb = new StringBuffer();
+		char[] b = new char[1024];
+		int line;
+		while(0<=(line =reader.read(b))) {
+			sb.append(b, 0, line);
+		}
+		return sb.toString();
+	}
+
 	String currentUrl;
 	private String connectToURL(String url) {
 		Log.d(TAG,"connectToURL("+url+")");
@@ -142,72 +138,90 @@ public class PukiWikiConnectorService implements Runnable, InterpreterInterface
 		//TODO add your code for connectButton.actionPerformed
 		String pageText=null;
 //		client=new HttpClient();
-		client=new DefaultHttpClient();
-//		this.messageTextArea.append(url+"\n");
-		if(this.authDialog){
-     	   return this.connectToURLWithAuth(url);
- 		}
-		try{
-			this.println("new getMethod("+url+")");
-//    		HttpMethod method = new GetMethod(url);
-			HttpGet method = new HttpGet(url);
-
-//	    	method.getParams().setContentCharset("UTF-8");
-//			int status=client.executeMethod(method);
-			pageText= client.execute(
-					method,
-					new ResponseHandler<String>(){
-				        @Override
-				        public String handleResponse(HttpResponse response)
-				                throws ClientProtocolException, IOException {
-				            // response.getStatusLine().getStatusCode()�Ń��X�|���X�R�[�h�𔻒肷��B
-				            // ����ɒʐM�ł����ꍇ�AHttpStatus.SC_OK�iHTTP 200�j�ƂȂ�B
-				            switch (response.getStatusLine().getStatusCode()) {
-				            case HttpStatus.SC_OK:
-				                // ���X�|���X�f�[�^�𕶎���Ƃ��Ď擾����B
-				                // byte[]�Ƃ��ēǂݏo�������Ƃ���EntityUtils.toByteArray()���g���B
-				                return EntityUtils.toString(response.getEntity(), "UTF-8");
-				            case HttpStatus.SC_NOT_FOUND:
-				                throw new RuntimeException("�f�[�^�Ȃ���I"); //FIXME
-				            
-				            default:
-				            	String status=(response.getStatusLine()).toString();
-			    		        println("Method failed: " + status);
-			    		        if(status.indexOf("401")>=0){
-			    		      	     application.sendCommandToActivity("connector loginRequired", "");
-			    		      	     application.sendCommandToActivity("connector setLoginMessage",  "Login:"+ currentUrl);
-			                         println("connectToUrl("+currentUrl+")...Method faile"+status);
-			    		        }
-				                throw new RuntimeException(status); //FIXME
-				            }
-
-				        }
-				    }
-						
-				);
-			return pageText;
-			/*
-		    if (status != HttpStatus.SC_OK) {
-		        this.println("Method failed: " + method.getStatusLine());
-		        if((method.getStatusLine()).toString().indexOf("401")>=0){
-		      	     application.sendCommandToActivity("connector loginRequired", "");
-		      	     application.sendCommandToActivity("connector setLoginMessage",  "Login:"+ currentUrl);
-                     println("connectToUrl("+url+")...Method faile"+status);
-                      return null;
-		        }
-		    }
-		    else{
-		    	pageText=this.getText(method);
-				return pageText;
-		    }
-		    */
+		String result = ""; // HTTP 接続 を 行う HttpURLConnection オブジェクト を 宣言。 finally で 確実 に 解放 する ため に try 外 で 宣言。
+		HttpURLConnection con = null; // HTTP 接続 の レスポンス データ として 取得 する InputStream オブジェクト を 宣言。 同じく try 外 で 宣言。
+		InputStream is = null;
+		try { // URL オブジェクト を 生成。
+			URL urlx = new URL( currentUrl); //─ ─ ❶ // URL オブジェクト から HttpURLConnection オブジェクト を 取得。
+			con = (HttpURLConnection) urlx. openConnection(); //─ ─
+			con. setRequestMethod("GET"); //─ ─ ❸ // 接続。
+			con. connect(); //─ ─ ❹ // HttpURLConnection オブジェクト から レスポンス データ を 取得。
+			is = con. getInputStream(); //─ ─ ❺ // レスポンス データ で ある InputStream オブジェクト を 文字列 に 変換。
+			result = is2String( is); //─ ─ ❼
 		}
-		catch(Exception e){
-			this.println(e.toString()+"\n");
-			e.printStackTrace();
+		catch( MalformedURLException ex) {
+
 		}
-		return null;
+		catch( IOException ex) {
+
+		}
+		finally { // HttpURLConnection オブジェクト が null で ない なら 解放。
+			if( con != null) { con. disconnect(); } // InputStream オブジェクト が null で ない なら 解放。
+			if( is != null) {
+				try { is. close();
+				}
+				catch( IOException ex) {
+
+				}
+			}
+		}
+		return result;
 	}
+
+	private String connectToPostURL(String url, String requestParameters) {
+		Log.d(TAG,"connectToURL("+url+")");
+		currentUrl=url;
+		//TODO add your code for connectButton.actionPerformed
+		String pageText=null;
+//		client=new HttpClient();
+		String result = ""; // HTTP 接続 を 行う HttpURLConnection オブジェクト を 宣言。 finally で 確実 に 解放 する ため に try 外 で 宣言。
+		HttpURLConnection con = null; // HTTP 接続 の レスポンス データ として 取得 する InputStream オブジェクト を 宣言。 同じく try 外 で 宣言。
+		InputStream is = null;
+		try { // URL オブジェクト を 生成。
+			URL urlx = new URL( currentUrl); //─ ─ ❶ // URL オブジェクト から HttpURLConnection オブジェクト を 取得。
+			con = (HttpURLConnection) urlx. openConnection(); //─ ─
+			con.setRequestMethod("POST"); //─ ─ ❸ // 接続。
+			con.setDoOutput( true);
+			OutputStream os = con. getOutputStream();
+			os.write( requestParameters.getBytes());
+			os.flush();
+			os.close();
+		}
+		catch( MalformedURLException ex) {
+
+		}
+		catch( IOException ex) {
+
+		}
+		finally { // HttpURLConnection オブジェクト が null で ない なら 解放。
+			if( con != null) { con. disconnect(); } // InputStream オブジェクト が null で ない なら 解放。
+			if( is != null) {
+				try { is. close();
+				}
+				catch( IOException ex) {
+
+				}
+			}
+		}
+		return result;
+	}
+	private class connectToURLPostTask extends AsyncTask<String, Integer, Long> {
+		protected Long doInBackground(String... params ) {
+			Log.d(TAG, "connectToURLTask doInBackground - " + params[0]);
+			try{
+				urlPage=connectToPostURL(params[0],params[1]);
+				if(urlPage==null){
+					urlPage="error";
+				}
+			}
+			catch(Exception e){
+				urlPage="error";
+			}
+			return 1L;
+		}
+	}
+
+
 	String urlPage;
 	private String connectToURLWait(String url) {
 		urlPage=null;
@@ -237,164 +251,7 @@ public class PukiWikiConnectorService implements Runnable, InterpreterInterface
 	    	return 1L;
 	     }
 	}
-	private String connectToURLWithAuth(String url) {
-		Log.d(TAG,"connectToURLWithAuth("+url+")");
-		//TODO add your code for connectButton.actionPerformed
-   	    this.authDialog=true;
-  	    this.currentUrl=url;
-		String urlWithoutParameters=getUrlWithoutParameters(currentUrl);
-		if(urlWithoutParameters==null){
-			application.sendCommandToActivity("connector setMessage", "connect failed. no Url is specified.");			
-		}
-		if(!urlWithoutParameters.endsWith("index.php")){
-			urlWithoutParameters=urlWithoutParameters+"index.php";
-		}
-		Log.d(TAG,"connectToURLWithAuth setProperty(\"auth-url\" - "+urlWithoutParameters);
-  	    this.setting.setProperty("auth-url", urlWithoutParameters);
-  	    application.sendCommandToActivity("connector setAuthUrl-",urlWithoutParameters);
-	    String authUrl="basicAuth-"+urlWithoutParameters;
-	    Log.d(TAG,"connectToURL-authUrl="+authUrl);
-	    String idPass=setting.getProperty(authUrl);
-	    Log.d(TAG,"connectToURL-idPass="+idPass);
-       	String id="";
-       	String pas="";
-	    if(idPass!=null){
-	        Log.d(TAG,"connectToURLWithAuth-login..idPass!=null");
-	    	int bp=idPass.indexOf("::::");
-	       	id=idPass.substring(0,bp);
-	    	Log.d(TAG,"connectToURLWithAuth-login..id="+id);
-	       	pas=idPass.substring(bp+"::::".length());
-	    	Log.d(TAG,"connectToURLWithAuth-login..pass="+pas);
-       	    if(id.equals("")){
-				application.sendCommandToActivity("connector setMessage", "connect failed. no login id.");
-	            return null;
-	        }
-	        if(pas.equals("")){
-				application.sendCommandToActivity("connector setMessage", "connect failed. no password.");
-	            return null;
-	        }
-	    }
-	    else{
-			application.sendCommandToActivity("connector setMessage", "connect failed. no id, password.");
-			this.authDialog=false;
-	        return null;
-	    }
-		this.println("authDialog is not null");
-		String registeredUrl=setting.getProperty("auth-url");
-		this.println("urlWithoutParamaters="+urlWithoutParameters);
-		this.println("registeredUrl="+registeredUrl);
-		this.println("authDialog is not null");
-		String pageText=null;
-		if(registeredUrl==null){
-			this.application.sendCommandToActivity("connector setMessage", "No login Id, pass.");
-			return null;
-		}
-		if(registeredUrl.equals(urlWithoutParameters)){
-			this.println("registeredUrl == urlWithoutParameters");
-//			client.getParams().setAuthenticationPreemptive(true);
-		    // �F�؏��(���[�U���ƃp�X���[�h)�̍쐬.
-	        Log.d(TAG,"connectToURLWithAuth, setProperty("+authUrl+" - "+idPass);
-    	    this.setting.setProperty(authUrl,idPass);
-		}
-//		HttpMethod method=null;
-		HttpGet method=null;
-		try{
-			Credentials defaultcreds1 = new UsernamePasswordCredentials(id,pas);
-		    // �F�؂̃X�R�[�v.
-	        AuthScope scope1 = new AuthScope(null, -1, null);
-		    // �X�R�[�v�ƔF�؏��̑g�������Z�b�g.
-//	    client.getState().setCredentials(scope1, defaultcreds1);				
-			this.println("new getMethod("+url+")");
-//    		method = new GetMethod(url);
-//        	method.setDoAuthentication(true);
-			client.getCredentialsProvider().setCredentials(
-					scope1, 
-					defaultcreds1);
-    	}
-   		catch(Exception e){
-   			this.println(e.toString()+"\n");
-   			e.printStackTrace();
-   		}
-//	    	method.getParams().setContentCharset("UTF-8");
-		try{
-//		    int status=client.executeMethod(method);
-			method = new HttpGet(url);
-/*
- 			HttpResponse status=client.execute(method);
-		    if (status != HttpStatus.SC_OK) {
-		          this.println("Method failed: " + method.getStatusLine());
-		          if((method.getStatusLine()).toString().indexOf("401")>=0){
-		     			this.println("auth login...error..");		        	  
-		          }
 
-		    }
-	    	pageText=this.getText(method);
-			return pageText;
-			*/
-			pageText= client.execute(
-					method,
-					new ResponseHandler<String>(){
-				        @Override
-				        public String handleResponse(HttpResponse response)
-				                throws ClientProtocolException, IOException {
-				            // response.getStatusLine().getStatusCode()�Ń��X�|���X�R�[�h�𔻒肷��B
-				            // ����ɒʐM�ł����ꍇ�AHttpStatus.SC_OK�iHTTP 200�j�ƂȂ�B
-				            switch (response.getStatusLine().getStatusCode()) {
-				            case HttpStatus.SC_OK:
-				                // ���X�|���X�f�[�^�𕶎���Ƃ��Ď擾����B
-				                // byte[]�Ƃ��ēǂݏo�������Ƃ���EntityUtils.toByteArray()���g���B
-				                return EntityUtils.toString(response.getEntity(), "UTF-8");
-				            case HttpStatus.SC_NOT_FOUND:
-				                throw new RuntimeException("�f�[�^�Ȃ���I"); //FIXME
-				            
-				            default:
-				            	String status=(response.getStatusLine()).toString();
-			    		        println("Method failed: " + status);
-			    		        if(status.indexOf("401")>=0){
-			    		      	     application.sendCommandToActivity("connector loginRequired", "");
-			    		      	     application.sendCommandToActivity("connector setLoginMessage",  "Login:"+ currentUrl);
-			                         println("connectToUrl("+currentUrl+")...Method faile"+status);
-			    		        }
-				                throw new RuntimeException(status); //FIXME
-				            }
-
-				        }
-				    }
-						
-				);
-			}
-		catch(Exception e){
-   			this.println("auth login...executeMethod error"+e.toString()+"\n");
-   			e.printStackTrace();			
-   			return null;
-		}
-		this.messageTextArea=this.messageTextArea+pageText;
-		return pageText;
-	}
-
-//	private String getText(HttpMethod method){
-	/*
-	private String getText(HttpGet method){
-		String pageText="";
-	    try{
-		   InputStream is=method.getResponseBodyAsStream();
- 		   InputStreamReader isr=new InputStreamReader(is,this.charset);
-	       BufferedReader br=new BufferedReader(isr);
-	       String line="";
-	       pageText="";
-	       while(true){
-	    	   line=br.readLine();
-	    	   pageText=pageText+line+"\n";
-	        	if(line==null) break;
-	    	    this.messageTextArea=this.messageTextArea+ line+"\n";
-//	    	    System.out.println(line);
-	       }
-	       method.releaseConnection();		
-	    }
-	    catch(Exception e){}
-	    return pageText;
-	}
-*/	
 	private void sendButtonActionPerformed() {
 //		this.println("sendButton.actionPerformed, event="+evt);
 		//TODO add your code for sendButton.actionPerformed
@@ -465,13 +322,6 @@ public class PukiWikiConnectorService implements Runnable, InterpreterInterface
 		// has the command #netpaint argument? 
 		String dataStart=z.substring(j);
 		this.println("dataStart="+dataStart);
-		/*
-		if(dataStart.startsWith("result:")){
-			String theCommand="result:" ;
-			this.println("theCommand="+theCommand);
-			k=j+theCommand.length();
-		}
-		*/
 		this.println("j="+j+" k="+k);
 		
 		String head=z.substring(0,k);
@@ -601,16 +451,7 @@ public class PukiWikiConnectorService implements Runnable, InterpreterInterface
 	private void replaceTextWith(String x){
 		// System.out.println("updateButton.actionPerformed, event="+evt);
 		//TODO add your code for updateButton.actionPerformed
-		
-		/* make the body (fig) */
-		/*
-		try{
-			fig=new String(fig.getBytes("UTF-8"),  "UTF-8");
-		}
-		catch(Exception e){
-			return;
-		}
-		*/
+
 		this.updateText=this.updateText+"\n "+insertSpaceAfterNewLine(x);
 		
 		this.urlField=this.actionUrl;
@@ -625,17 +466,7 @@ public class PukiWikiConnectorService implements Runnable, InterpreterInterface
 		this.println("digest="+this.editDigest);
 		try{
 //    		PostMethod method = new PostMethod(url);
-			HttpPost method = new HttpPost(url);
-    		if(this.client==null) return;
-//    		method.getParams().setContentCharset(this.pageCharSet);
-    		/*
-    		method.setParameter("msg",this.updateText);
-//    		method.setParameter("encode_hint",this.editEncodeHint);
-    		method.addParameter("write",this.editWriteValue);
-    		method.addParameter("cmd",this.editCmd);
-    		method.addParameter("page",this.editPage);
-    		method.addParameter("digest",this.editDigest);
-    		*/
+/*
     		List<NameValuePair> params = new ArrayList<NameValuePair>();
     		params.add(new BasicNameValuePair("msg", this.updateText));
     		params.add(new BasicNameValuePair("encode_hint", this.editEncodeHint));
@@ -644,66 +475,17 @@ public class PukiWikiConnectorService implements Runnable, InterpreterInterface
     		params.add(new BasicNameValuePair("page", this.editPage));
     		params.add(new BasicNameValuePair("digest", this.editDigest));
     		method.setEntity(new UrlEncodedFormEntity(params));
+    		*/
+           String postData="msg="+this.updateText;
+           postData=postData+"&encode_hint="+this.editEncodeHint;
+           postData=postData+"&write="+this.editWriteValue;
+           postData=postData+"&cmd="+this.editCmd;
+           postData=postData+"&page="+this.editPage;
+           postData=postData+"&digest="+this.editDigest;
 
+           connectToURLPostTask ptask=new connectToURLPostTask();
+           ptask.execute(url, postData);
 
-//			int status=client.executeMethod(method);
-    		/*
-    		int status=client.execute(method);
-		    if (status != HttpStatus.SC_OK) {
-		          this.println("Method failed: " + method.getStatusLine());
-		          method.getResponseBodyAsString();
-		    }
-		    else {
-		          br = new BufferedReader(new InputStreamReader(method.getResponseBodyAsStream()));
-		          String readLine;
-		          while(((readLine = br.readLine()) != null)) {
-		            this.println(readLine);
-		          }
-		   }
-		   */
-		   String status= client.execute(
-					method,
-					new ResponseHandler<String>(){
-			     		BufferedReader br = null;
-				        @Override
-				        public String handleResponse(HttpResponse response)
-				                throws ClientProtocolException, IOException {
-				            // response.getStatusLine().getStatusCode()�Ń��X�|���X�R�[�h�𔻒肷��B
-				            // ����ɒʐM�ł����ꍇ�AHttpStatus.SC_OK�iHTTP 200�j�ƂȂ�B
-				            switch (response.getStatusLine().getStatusCode()) {
-				            case HttpStatus.SC_OK:
-				                // ���X�|���X�f�[�^�𕶎���Ƃ��Ď擾����B
-				                // byte[]�Ƃ��ēǂݏo�������Ƃ���EntityUtils.toByteArray()���g���B
-				            	InputStream content = response.getEntity().getContent();
-						          br = new BufferedReader(new InputStreamReader(content));
-						          String readLine;
-						          while(((readLine = br.readLine()) != null)) {
-//						            println(readLine);
-						          }
-						          content.close();
-						          br.close();
-						          return response.getStatusLine().toString();
-//				                return EntityUtils.toString(response.getEntity(), "UTF-8");
-				            case HttpStatus.SC_NOT_FOUND:
-				                throw new RuntimeException("�f�[�^�Ȃ���I"); //FIXME
-				            
-				            default:
-				            	String status=(response.getStatusLine()).toString();
-			    		        println("Method failed: " + status);
-			    		        if(status.indexOf("401")>=0){
-			    		      	     application.sendCommandToActivity("connector loginRequired", "");
-			    		      	     application.sendCommandToActivity("connector setLoginMessage",  "Login:"+ currentUrl);
-			                         println("connectToUrl("+currentUrl+")...Method faile"+status);
-			    		        }
-				                throw new RuntimeException(status); //FIXME
-				            }
-
-				        }
-				    }
-						
-				);
-//			method.releaseConnection();
-		   client.getConnectionManager().shutdown();
 		}
 		catch(Exception e){
 //			this.messageTextArea.append(e.toString()+"\n");
@@ -757,58 +539,7 @@ public class PukiWikiConnectorService implements Runnable, InterpreterInterface
 	private void readFromPukiwikiPageAndSetData(String url){
 		Log.d(TAG,"readFromPukiwikiPageAndSetData("+url+")");
 		readUrl=url;
-		/*
-		this.println("editUrl="+url+"\n");
-		this.urlField=url;
-		String x=connectToURL(url);
-		if(x==null){
-			this.application.sendCommandToActivity("activity showConnector", "");
-			this.application.sendCommandToActivity("connector setMessage","connection error. confirm url and login");
-			println("connect error. when reading.");
-			return;
-		}
-		
-		// extract charSet from <?xml= ...?> which contains charSet;
-		String firstXmltag=getBetween(x,"<?xml","?>");
-		if(firstXmltag==null) {
-			println("firstXmlTag==null");
-			return;
-		}
-		this.pageCharSet=this.getTagProperty(firstXmltag,"encoding");
-		if(this.pageCharSet==null)
-			this.pageCharSet="UTF-8";
-		this.println("pageCharSet="+this.pageCharSet);
-		x=getBetween(x,"<body>","</body>");
-		
-		// exclude until <applet
-//		int i=x.indexOf("<applet");
-//		if(i<0) return;
-//		x=x.substring(i);
-		String headerPart=getBetween(x,"<div id=\"header\">","</div>");
-		String pageNamePart=getBetween(headerPart,"<span class=\"small\">","</span>");
-		StringTokenizer st=new StringTokenizer(pageNamePart,"?");
-		this.baseUrl=st.nextToken();
-//		System.out.println("baseUrl="+baseUrl);
-		this.pageName=st.nextToken();
-//		System.out.println("pageName="+pageName);
-		// extract <pre>...</pre> where the figure is.
-		String inw=getBetween(x,"<pre>","</pre>");
-		String input=inw;
-		if(input==null) return;
-        input=input.replaceAll("&quot;", "\"");
-        input=input.replaceAll("&lt;", "<");
-        input=input.replaceAll("&gt;", ">");
-        inputText=input;
-        application.setInput(inputText+"\n");  
-        */
-		/*
-		try{
-		new readWriteWikiTask().execute(url);		
-		}
-		catch(Exception e){
-			Log.d(TAG,"error.."+e.toString());
-		}
-		*/
+
 
         try{
 		   handler.post(new Runnable() {

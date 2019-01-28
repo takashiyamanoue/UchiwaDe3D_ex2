@@ -1,8 +1,8 @@
 package org.yamalab.uchiwade3d_ex1.pukiwikiCommunicator.language;
 
 import java.lang.*;
-import java.awt.*;
-import android.widget.EditText;
+//import java.awt.*;
+//import android.widget.EditText;
 public class Parser extends Object
 {
     public InterpreterInterface message;

@@ -10,9 +10,9 @@ An interpreter of Basic like programming language.
   http://www.tobata.isc.kyutech.ac.jp/~yamanoue
 
 */
-import java.awt.*;
-import java.util.*;
-import android.widget.*;
+//import java.awt.*;
+//import java.util.*;
+//import android.widget.*;
 public class ABasic extends ALisp
 {
     public void clearEnvironment()

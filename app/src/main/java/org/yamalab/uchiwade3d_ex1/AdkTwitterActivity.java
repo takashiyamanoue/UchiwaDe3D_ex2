@@ -107,7 +107,7 @@ public class AdkTwitterActivity extends Activity implements OnClickListener {
 //	public Hashtable properties;
 	AdkService adkService;
 	boolean mBound=false;
-	boolean emulatorDebug=false; // true for debugging
+	boolean emulatorDebug=true; // true for debugging
 
     public AdkTwitterActivity() {
 //        mLogArea = (EditText) findViewById(R.id.logArea);

@@ -10,9 +10,9 @@ An interpreter of Basic like programming language.
   http://www.tobata.isc.kyutech.ac.jp/~yamanoue
 
 */
-import java.awt.*;
+//import java.awt.*;
 
-import android.widget.EditText;
+//import android.widget.EditText;
 
 public class BasicParser extends Parser
 {
