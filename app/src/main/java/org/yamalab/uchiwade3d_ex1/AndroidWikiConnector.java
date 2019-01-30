@@ -231,7 +231,7 @@ implements OnClickListener, PukiwikiJavaApplication
 			    return;
 		    }
 		    Log.d(TAG,"setLoginRequiread-authDialog!=null");
-		    mActivity.showTabContents(R.id.main_wiki_label);
+		    mActivity.showTabContents(R.id.wiki_connector_label);
           }
       });
 		

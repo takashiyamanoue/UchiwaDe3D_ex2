@@ -107,7 +107,7 @@ public class AdkTwitterActivity extends Activity implements OnClickListener {
 //	public Hashtable properties;
 	AdkService adkService;
 	boolean mBound=false;
-	boolean emulatorDebug=true; // true for debugging
+	boolean emulatorDebug=false; // true for debugging
 
     public AdkTwitterActivity() {
 //        mLogArea = (EditText) findViewById(R.id.logArea);
@@ -206,7 +206,7 @@ public class AdkTwitterActivity extends Activity implements OnClickListener {
 		mFileIOController = new FileIOController(this);
 
 		mFileIOController.set3DEditor(mThreeDimensionInputController);
-		mWikiLabel =   (TextView) findViewById(R.id.main_wiki_label);
+//		mWikiLabel =   (TextView) findViewById(R.id.main_wiki_label);
 
 		/* */
 		Log.d(TAG,"showControls-1");
@@ -219,7 +219,7 @@ public class AdkTwitterActivity extends Activity implements OnClickListener {
 		m3DInputContainer=findViewById(R.id.three_dimension_input);
 		mFileIOContainer=findViewById(R.id.file_io_container);
 		mWikiContainer = (LinearLayout) findViewById(R.id.connector_container);
-		mDebugContainer = (LinearLayout) findViewById(R.id.pukiwiki_connector_debugger);
+//		mDebugContainer = (LinearLayout) findViewById(R.id.pukiwiki_connector_debugger);
 
 /*
 		// レイアウトインフレーターを取得
@@ -266,6 +266,7 @@ public class AdkTwitterActivity extends Activity implements OnClickListener {
 		mTwitterLoginLabel = findViewById(R.id.main_login_label);
 		mLogLabel = findViewById(R.id.main_log_label);
 		mLogArea =  (EditText)findViewById(R.id.logArea);
+		mWikiLabel=findViewById(R.id.wiki_connector_label);
 /* */
 		/* */
 		Log.d(TAG,"showControls-3");
@@ -299,6 +300,7 @@ public class AdkTwitterActivity extends Activity implements OnClickListener {
 		mTweet = null;
 		m3DInputContainer=null;
 		mFileIOContainer=null;
+		mWikiContainer=null;
 	}
 
 	public void showTabContents(int id) {
@@ -321,6 +323,8 @@ public class AdkTwitterActivity extends Activity implements OnClickListener {
 		mLogLabel.setBackgroundDrawable(mNormalTabImage);
 		m3DInputContainer.setVisibility(View.GONE);
 		m3DInLabel.setBackgroundDrawable(mNormalTabImage);
+		mWikiContainer.setVisibility(View.GONE);
+		mWikiLabel.setBackgroundDrawable(mNormalTabImage);
 
 		if (id==R.id.main_inout_label) {
 			Log.d(TAG,"showTabContents -main_inout_label id="+id);
@@ -379,6 +383,13 @@ public class AdkTwitterActivity extends Activity implements OnClickListener {
 			Log.d(TAG,"showTabContents -twitter_main_label id="+id);
 			mLogContainer.setVisibility(View.VISIBLE);
 			mLogLabel.setBackgroundDrawable(mFocusedTabImage);
+		}
+		else
+		if(id==R.id.wiki_connector_label)
+		{
+			Log.d(TAG,"showTabContents -twitter_main_label id="+id);
+			mWikiContainer.setVisibility(View.VISIBLE);
+			mWikiLabel.setBackgroundDrawable(mFocusedTabImage);
 		}
 	}
 

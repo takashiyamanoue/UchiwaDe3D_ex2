@@ -14,15 +14,6 @@ import java.util.Properties;
 import java.util.StringTokenizer;
 import java.util.Vector;
 
-/*
-import org.apache.http.HttpRequest;
-import org.apache.http.HttpResponse;
-import org.apache.http.HttpStatus;
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.util.EntityUtils;
-*/
-
 import org.yamalab.uchiwade3d_ex1.Util;
 import org.yamalab.uchiwade3d_ex1.pukiwikiCommunicator.language.HtmlTokenizer;
 import org.yamalab.uchiwade3d_ex1.pukiwikiCommunicator.language.InterpreterInterface;

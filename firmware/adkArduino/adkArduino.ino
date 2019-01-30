@@ -164,6 +164,8 @@ void setup()
     clock_prescale_set(clock_div_1); // Enable 16 MHz on Trinket
    #endif
 
+   SPI.beginTransaction(SPISettings(16000000, MSBFIRST, SPI_MODE0));
+
    Serial.begin(57600);
    Serial.print("\r\nStart\n\r");
    init_c2i();
@@ -207,13 +209,25 @@ void setup()
   iter=0;
 }
 char readKind(){
-  byte inMsg[5];
+  byte inMsg[6];
   Serial.println("readKind()");
   int len = acc.read(inMsg, sizeof(inMsg),1);
   Serial.print("len=");Serial.println(len);
   if(len<0) return ' ';
+  Serial.print("inMsg[0]=");Serial.println(inMsg[0]);
+  Serial.print("inMsg[2]=");Serial.println(inMsg[2]);
   if(inMsg[0]=='b'){
-    if(inMsg[2]=='r') return 'r';
+    if(inMsg[2]=='b') return 'b';
+    if(inMsg[2]=='r') {
+         byte bx=inMsg[4];
+         int l=bx-'0';
+         if(l>9) l=bx-'a'+10;
+         if(l>=15) l=15;
+         int blx=(l*50)/15;
+          Serial.print("brn="); Serial.println(blx);
+          matrix.setBrightness(blx); 
+          return 'r';
+    }
     if(inMsg[2]=='n') return 'n';
   }
   return ' ';
@@ -224,6 +238,7 @@ void readAcc(){
      Serial.println("readAcc()"); //**
      int len = acc.read(inMsg, sizeof(inMsg), 1);
      Serial.print("len=");Serial.println(len);
+     Serial.print("inMsg[0]=");Serial.println(inMsg[0]);
      if(len<0) return;     
      int i,j;
      byte b;
@@ -232,6 +247,7 @@ void readAcc(){
          int k=dc-'0';
          if(k>9) k=dc-'a'+10;
          if(k>=Depth) k=Depth;
+         Serial.print("k=");Serial.println(k);
          int p=4;
          for(i=0;i<16;i++){
           for(j=0;j<16;j++){
@@ -339,13 +355,17 @@ void loop()
      iter=0;
   }
   
-  if(dp<=0){
-    hiSound();        
+  if(dp<0){
+    delay(5);
+    hiSound();
+    delay(5);        
     dir=0;
     dp=0;
   }
   if(dp>=Depth){
+    delay(5);
     lowSound();        
+    delay(5);
     dir=1;
     dp=Depth-1;
   }

@@ -86,14 +86,6 @@
         app:layout_constraintLeft_toRightOf="@+id/send_button" />
 
     <TextView
-        android:id="@+id/spacer"
-        android:layout_width="wrap_content"
-        android:layout_height="20dp"
-        android:text=" "
-        app:layout_constraintLeft_toLeftOf="@+id/button_15_00"
-        app:layout_constraintTop_toBottomOf="@+id/button_15_00" />
-
-    <TextView
         android:id="@+id/spacer2"
         android:layout_width="0dp"
         android:layout_height="20dp"
@@ -110,6 +102,16 @@
         app:layout_constraintTop_toBottomOf="@+id/depthIndicator"
 
         />
+
+    <SeekBar
+        android:id="@+id/brightness_bar"
+        android:layout_width="165dp"
+        android:layout_height="20dp"
+        app:layout_constraintLeft_toRightOf="@+id/label_Z"
+        app:layout_constraintTop_toBottomOf="@+id/button_15_00"
+
+        />
+
 
     <Button
         android:id="@+id/color_indicator"
@@ -178,7 +180,8 @@
         android:background="#ff0000"
         android:orientation="horizontal"
         app:layout_constraintLeft_toRightOf="@+id/label_Z"
-        app:layout_constraintTop_toBottomOf="@+id/spacer" />
+        app:layout_constraintTop_toBottomOf="@+id/brightness_bar" />
+
 
     <SeekBar
         android:id="@+id/seekBar_green"

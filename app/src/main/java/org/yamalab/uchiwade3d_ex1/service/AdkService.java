@@ -556,6 +556,7 @@ public class AdkService extends Service
 		if (mOutputStream != null && buffer[1] != -1) {
 			try {
 				mOutputStream.write(buffer);
+				mOutputStream.flush();
 			} catch (IOException e) {
 				Log.e(TAG, "write failed", e);
 			}
@@ -568,15 +569,16 @@ public class AdkService extends Service
 		//Log.d(TAG, "outputDevice(" + command + "-" + target + "," + value + ")");
 		int xlength=x.length();
 		if(xlength<=0) return false;
-		if(xlength<5){
+		if(xlength<6){
 			if(x.startsWith("b-r")||x.startsWith("b-n")){
-				byte[] buffer = new byte[5];
+				byte[] buffer = new byte[6];
 				for(int i=0;i<xlength;i++){
 					buffer[i]=(byte)(x.charAt(i));
 				}
 				if (mOutputStream != null && buffer[1] != -1) {
 					try {
 						mOutputStream.write(buffer);
+						mOutputStream.flush();
 					} catch (IOException e) {
 						Log.e(TAG, "write failed", e);
 						return false;
@@ -599,6 +601,7 @@ public class AdkService extends Service
 		if (mOutputStream != null && buffer[1] != -1) {
 			try {
 				mOutputStream.write(buffer);
+				mOutputStream.flush();
 			} catch (IOException e) {
 				Log.e(TAG, "write failed", e);
 				return false;
@@ -625,6 +628,7 @@ public class AdkService extends Service
 		if (mOutputStream != null && buffer[1] != -1) {
 			try {
 				mOutputStream.write(buffer);
+				mOutputStream.flush();
 			} catch (IOException e) {
 //				Log.e(TAG, "write failed", e);
 				showLog(TAG+" - "+"write failed"+e);

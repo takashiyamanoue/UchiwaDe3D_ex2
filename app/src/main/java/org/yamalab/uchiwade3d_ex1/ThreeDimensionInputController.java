@@ -26,7 +26,7 @@ public class ThreeDimensionInputController extends AccessoryController
 
     final String TAG = "3DInputController";
     private AdkTwitterActivity mHostActivity;
-    private android.widget.SeekBar mPBar_red, mPBar_green, mPBar_blue;
+    private android.widget.SeekBar mPBar_red, mPBar_green, mPBar_blue, mPBar_brightness;
     private TextViewWithColor inputSliceImage[][];
     private TextViewWithColor presetColors[];
     int tDImage[][][];
@@ -404,9 +404,11 @@ public class ThreeDimensionInputController extends AccessoryController
         mPBar_red=(SeekBar)findViewById(R.id.seekBar_red);
         mPBar_green=(SeekBar)findViewById(R.id.seekBar_green);
         mPBar_blue=(SeekBar)findViewById(R.id.seekBar_blue);
+        mPBar_brightness=(SeekBar)findViewById(R.id.brightness_bar);
         mPBar_red.setOnSeekBarChangeListener(this);
         mPBar_green.setOnSeekBarChangeListener(this);
         mPBar_blue.setOnSeekBarChangeListener(this);
+        mPBar_brightness.setOnSeekBarChangeListener(this);
         mDownArrowView_1=(ImageView)findViewById(R.id.downArrow_1);
         mDownArrowView_2=(ImageView)findViewById(R.id.downArrow_2);
         mUpArrowView_1=(ImageView)findViewById(R.id.upArrow_1);
@@ -419,6 +421,8 @@ public class ThreeDimensionInputController extends AccessoryController
         mDownArrowView_2.setOnClickListener(this);
         mUpArrowView_1.setOnClickListener(this);
         mUpArrowView_2.setOnClickListener(this);
+
+        mPBar_brightness.setProgress(50);
 
         init_c2i();
         sending=false;
@@ -631,6 +635,7 @@ public class ThreeDimensionInputController extends AccessoryController
 
     }
 
+    int brightness;
     @Override
     public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
         i=i*255/100;
@@ -650,6 +655,10 @@ public class ThreeDimensionInputController extends AccessoryController
             int cx=mColorIndicator.getColor();
             int nc=(cx & 0x00ffff00) | (i & 0x000000ff)|0xff000000;
             mColorIndicator.setColor(nc);
+        }
+        else
+        if(seekBar==mPBar_brightness){
+            brightness=(i*15)/255;
         }
     }
 
@@ -799,7 +808,7 @@ public class ThreeDimensionInputController extends AccessoryController
         String [] rest=new String[1];
         if(Util.parseKeyWord(subcmd,"request-bitmap",rest)){
             if(sending) {
-                mHostActivity.sendCommandToService("adk send: bitmap","b-r"+oi2c(maxDepth));
+                mHostActivity.sendCommandToService("adk send: bitmap","b-r"+oi2c(maxDepth)+oi2c(brightness));
                 for (int i = 0; i < maxDepth; i++) {
                     String sending = getReducedColorOftheDepth(i);
                     mHostActivity.sendCommandToService("adk send: bitmap", sending);
